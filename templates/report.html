@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insider Buying Report — {{ window_label }}</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; color: #212121; background: #FAFAFA; line-height: 1.5; }
+  a { color: #1565C0; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .page-wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  .back-link { font-size: 13px; color: #666; margin-bottom: 20px; display: inline-block; }
+  .back-link::before { content: "← "; }
+
+  .page-header { border-bottom: 2px solid #1565C0; padding-bottom: 16px; margin-bottom: 24px; }
+  .page-header h1 { font-size: 22px; font-weight: 700; color: #0D47A1; letter-spacing: 0.03em; text-transform: uppercase; }
+  .page-header .meta { font-size: 13px; color: #666; margin-top: 4px; }
+
+  .summary-bar { display: flex; gap: 24px; flex-wrap: wrap; background: #fff; border: 1px solid #E0E0E0; border-radius: 6px; padding: 16px 20px; margin-bottom: 28px; }
+  .summary-stat { display: flex; flex-direction: column; }
+  .summary-stat .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; font-weight: 600; }
+  .summary-stat .value { font-size: 20px; font-weight: 700; color: #0D47A1; }
+
+  .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #555; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid #E0E0E0; }
+
+  .card { background: #fff; border: 1px solid #E0E0E0; border-radius: 6px; padding: 20px; margin-bottom: 16px; }
+  .card.cluster { border-left: 3px solid #F44336; }
+  .card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  .score-badge { background: #0D47A1; color: #fff; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+  .cluster-badge { background: #F44336; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+  .card-title { flex: 1; }
+  .card-title .ticker { font-size: 18px; font-weight: 700; color: #0D47A1; }
+  .card-title .company-name { font-size: 14px; color: #555; }
+
+  .tx-rows { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .tx-row { display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; background: #F8F8F8; border-radius: 4px; padding: 8px 12px; }
+  .tx-row .insider { font-weight: 600; color: #212121; }
+  .tx-row .title-tag { color: #666; font-size: 12px; }
+  .tx-row .amount { color: #1B5E20; font-weight: 600; }
+  .tx-row .pct { color: #E65100; font-size: 12px; }
+  .tx-row .filing-link { margin-left: auto; font-size: 12px; color: #888; }
+
+  .price-context { font-size: 12px; color: #555; background: #F5F5F5; border-radius: 4px; padding: 6px 10px; margin-bottom: 12px; display: inline-block; }
+
+  .company-desc { font-size: 13px; color: #424242; line-height: 1.6; margin-bottom: 12px; }
+
+  .news-list { margin-bottom: 14px; }
+  .news-list .news-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #888; margin-bottom: 6px; }
+  .news-list ul { list-style: none; }
+  .news-list li { font-size: 13px; padding: 4px 0; border-bottom: 1px solid #F0F0F0; }
+  .news-list li:last-child { border-bottom: none; }
+  .news-list .news-meta { font-size: 11px; color: #999; margin-left: 8px; }
+
+  .chart-wrap { margin-top: 14px; }
+  .chart-wrap img { width: 100%; max-width: 100%; border-radius: 4px; border: 1px solid #E0E0E0; }
+  .chart-placeholder { background: #F5F5F5; border: 1px dashed #CCC; border-radius: 4px; padding: 20px; text-align: center; color: #999; font-size: 13px; }
+
+  .table-wrap { overflow-x: auto; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #F5F5F5; color: #555; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 10px; text-align: left; cursor: pointer; white-space: nowrap; border-bottom: 2px solid #E0E0E0; }
+  th:hover { background: #EEEEEE; }
+  th.sort-asc::after { content: " ▲"; }
+  th.sort-desc::after { content: " ▼"; }
+  td { padding: 7px 10px; border-bottom: 1px solid #F0F0F0; vertical-align: top; }
+  tr:hover td { background: #FAFAFA; }
+  .td-ticker { font-weight: 700; color: #0D47A1; }
+  .td-value { color: #1B5E20; font-weight: 600; }
+  .td-score { font-weight: 700; color: #0D47A1; }
+  .td-cluster { color: #F44336; font-weight: 600; }
+
+  .section-gap { margin-bottom: 40px; }
+  .no-data { color: #999; font-size: 13px; padding: 20px 0; }
+
+  @media (max-width: 640px) {
+    .summary-bar { gap: 16px; }
+    .summary-stat .value { font-size: 16px; }
+    .card { padding: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <a href="../../index.html" class="back-link">Back to Archive</a>
+
+  <div class="page-header">
+    <h1>Insider Buying Report</h1>
+    <div class="meta">
+      {{ window_label }} &nbsp;·&nbsp; Updated {{ run_date_fmt }}
+    </div>
+  </div>
+
+  <div class="summary-bar">
+    <div class="summary-stat">
+      <span class="label">Purchases</span>
+      <span class="value">{{ stats.total_count }}</span>
+    </div>
+    <div class="summary-stat">
+      <span class="label">Total Value</span>
+      <span class="value">{{ stats.total_value_fmt }}</span>
+    </div>
+    <div class="summary-stat">
+      <span class="label">Companies</span>
+      <span class="value">{{ stats.company_count }}</span>
+    </div>
+    <div class="summary-stat">
+      <span class="label">Cluster Buys</span>
+      <span class="value">{{ stats.cluster_count }}</span>
+    </div>
+  </div>
+
+  {# ── CLUSTER BUYS ── #}
+  {% if clusters %}
+  <div class="section-gap">
+    <div class="section-title">Cluster Buys — Multiple Insiders, Same Company</div>
+
+    <div class="table-wrap" style="margin-bottom:20px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Company</th>
+            <th style="text-align:right">Insiders</th>
+            <th style="text-align:right">Combined Value</th>
+            <th style="text-align:right">Score</th>
+            <th>Buyers</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cluster in clusters %}
+          <tr>
+            <td class="td-ticker"><a href="#cluster-{{ cluster.ticker }}">{{ cluster.ticker }}</a></td>
+            <td>{{ cluster.company_name }}</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">{{ cluster.transactions | length }}</span></td>
+            <td style="text-align:right" class="td-value">{{ cluster.combined_value_fmt }}</td>
+            <td style="text-align:right" class="td-score">{{ cluster.combined_score }}</td>
+            <td style="font-size:12px; color:#555;">{{ cluster.transactions | map(attribute='insider_title') | select | join(' · ') or cluster.transactions | map(attribute='insider_name') | join(' · ') }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% for cluster in clusters %}
+    <div class="card cluster" id="cluster-{{ cluster.ticker }}">
+      <div class="card-header">
+        <span class="cluster-badge">{{ cluster.transactions | length }} INSIDERS</span>
+        <span class="score-badge">Score {{ cluster.combined_score }}</span>
+        <div class="card-title">
+          <span class="ticker">{{ cluster.ticker }}</span>
+          <span class="company-name"> — {{ cluster.company_name }}</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>{{ cluster.combined_value_fmt }}</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        {% for tx in cluster.transactions %}
+        <div class="tx-row">
+          <span class="insider">{{ tx.insider_name }}</span>
+          <span class="title-tag">{{ tx.insider_title or "—" }}</span>
+          <span class="amount">{{ tx.shares_fmt }} shares @ ${{ tx.price_fmt }}  ·  {{ tx.total_value_fmt }}</span>
+          {% if tx.percentage_increase %}<span class="pct">+{{ tx.percentage_increase | round(1) }}% position</span>{% endif %}
+          <a class="filing-link" href="{{ tx.filing_url }}" target="_blank">SEC Filing ↗</a>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% if cluster.company_info.current_price %}
+      <div class="price-context">
+        Current: ${{ cluster.company_info.current_price | round(2) }}
+        {% if cluster.company_info.week_52_low and cluster.company_info.week_52_high %}
+        &nbsp;·&nbsp; 52-wk ${{ cluster.company_info.week_52_low | round(2) }} – ${{ cluster.company_info.week_52_high | round(2) }}
+        {% endif %}
+        {% if cluster.company_info.market_cap %}
+        &nbsp;·&nbsp; Mkt Cap {{ cluster.company_info.market_cap_fmt }}
+        {% endif %}
+        {% if cluster.company_info.sic_description %}
+        &nbsp;·&nbsp; {{ cluster.company_info.sic_description }}
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if cluster.company_info.description %}
+      <div class="company-desc">{{ cluster.company_info.description }}</div>
+      {% endif %}
+
+      {% if cluster.company_info.recent_news %}
+      <div class="news-list">
+        <div class="news-title">Recent News</div>
+        <ul>
+          {% for n in cluster.company_info.recent_news[:5] %}
+          <li>
+            <a href="{{ n.article_url }}" target="_blank">{{ n.title }}</a>
+            <span class="news-meta">{{ n.publisher }} · {{ n.published_utc[:10] if n.published_utc else "" }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if cluster.chart_b64 %}
+      <div class="chart-wrap">
+        <img src="data:image/png;base64,{{ cluster.chart_b64 }}" alt="{{ cluster.ticker }} price chart">
+      </div>
+      {% else %}
+      <div class="chart-placeholder">Price chart unavailable</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {# ── TOP INDIVIDUAL BUYS ── #}
+  {% if top_individuals %}
+  <div class="section-gap">
+    <div class="section-title">Top Individual Buys — by Score</div>
+
+    {% for tx in top_individuals %}
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score {{ tx.score }}</span>
+        <div class="card-title">
+          <span class="ticker">{{ tx.issuer_ticker }}</span>
+          <span class="company-name"> — {{ tx.issuer_name }}</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">{{ tx.insider_name }}</span>
+          <span class="title-tag">{{ tx.insider_title or "—" }}</span>
+          <span class="amount">{{ tx.shares_fmt }} shares @ ${{ tx.price_fmt }}  ·  {{ tx.total_value_fmt }}</span>
+          {% if tx.percentage_increase %}<span class="pct">+{{ tx.percentage_increase | round(1) }}% position</span>{% endif %}
+          <a class="filing-link" href="{{ tx.filing_url }}" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      {% if tx.company_info.current_price %}
+      <div class="price-context">
+        Current: ${{ tx.company_info.current_price | round(2) }}
+        {% if tx.company_info.week_52_low and tx.company_info.week_52_high %}
+        &nbsp;·&nbsp; 52-wk ${{ tx.company_info.week_52_low | round(2) }} – ${{ tx.company_info.week_52_high | round(2) }}
+        {% endif %}
+        {% if tx.company_info.market_cap %}
+        &nbsp;·&nbsp; Mkt Cap {{ tx.company_info.market_cap_fmt }}
+        {% endif %}
+        {% if tx.company_info.sic_description %}
+        &nbsp;·&nbsp; {{ tx.company_info.sic_description }}
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if tx.company_info.description %}
+      <div class="company-desc">{{ tx.company_info.description }}</div>
+      {% endif %}
+
+      {% if tx.company_info.recent_news %}
+      <div class="news-list">
+        <div class="news-title">Recent News</div>
+        <ul>
+          {% for n in tx.company_info.recent_news[:5] %}
+          <li>
+            <a href="{{ n.article_url }}" target="_blank">{{ n.title }}</a>
+            <span class="news-meta">{{ n.publisher }} · {{ n.published_utc[:10] if n.published_utc else "" }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if tx.chart_b64 %}
+      <div class="chart-wrap">
+        <img src="data:image/png;base64,{{ tx.chart_b64 }}" alt="{{ tx.issuer_ticker }} price chart">
+      </div>
+      {% else %}
+      <div class="chart-placeholder">Price chart unavailable</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {# ── ALL TRANSACTIONS TABLE ── #}
+  <div class="section-gap">
+    <div class="section-title">All Transactions ({{ stats.total_count }})</div>
+    <div class="table-wrap">
+      <table id="tx-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">Date</th>
+            <th onclick="sortTable(1)">Ticker</th>
+            <th onclick="sortTable(2)">Company</th>
+            <th onclick="sortTable(3)">Insider</th>
+            <th onclick="sortTable(4)">Title</th>
+            <th onclick="sortTable(5)" style="text-align:right">Shares</th>
+            <th onclick="sortTable(6)" style="text-align:right">Price</th>
+            <th onclick="sortTable(7)" style="text-align:right">Value</th>
+            <th onclick="sortTable(8)" style="text-align:right">% Incr</th>
+            <th onclick="sortTable(9)" style="text-align:right">Score</th>
+            <th>Filing</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tx in all_transactions %}
+          <tr>
+            <td>{{ tx.transaction_date or "—" }}</td>
+            <td class="td-ticker">{{ tx.issuer_ticker }}</td>
+            <td>{{ tx.issuer_name }}</td>
+            <td>{{ tx.insider_name }}</td>
+            <td>{{ tx.insider_title or "—" }}</td>
+            <td style="text-align:right">{{ "{:,.0f}".format(tx.shares) if tx.shares else "—" }}</td>
+            <td style="text-align:right">{% if tx.price_per_share %}${{ "%.2f"|format(tx.price_per_share) }}{% else %}—{% endif %}</td>
+            <td style="text-align:right" class="td-value">{{ tx.total_value_fmt }}</td>
+            <td style="text-align:right">{% if tx.percentage_increase %}{{ tx.percentage_increase | round(1) }}%{% else %}—{% endif %}</td>
+            <td style="text-align:right" class="td-score">{{ tx.score }}</td>
+            <td><a href="{{ tx.filing_url }}" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var sortCol = -1, sortDir = 1;
+  function sortTable(col) {
+    var tbl = document.getElementById("tx-table");
+    var thead = tbl.querySelector("thead tr");
+    var tbody = tbl.querySelector("tbody");
+    var rows = Array.from(tbody.querySelectorAll("tr"));
+    if (sortCol === col) { sortDir *= -1; } else { sortDir = -1; sortCol = col; }
+    Array.from(thead.querySelectorAll("th")).forEach(function(th, i) {
+      th.classList.remove("sort-asc", "sort-desc");
+    });
+    thead.querySelectorAll("th")[col].classList.add(sortDir === 1 ? "sort-asc" : "sort-desc");
+    rows.sort(function(a, b) {
+      var av = a.cells[col].textContent.trim().replace(/[$,%]/g, "").replace(/,/g, "");
+      var bv = b.cells[col].textContent.trim().replace(/[$,%]/g, "").replace(/,/g, "");
+      var an = parseFloat(av), bn = parseFloat(bv);
+      if (!isNaN(an) && !isNaN(bn)) return (an - bn) * sortDir;
+      return av.localeCompare(bv) * sortDir;
+    });
+    rows.forEach(function(r) { tbody.appendChild(r); });
+  }
+  window.sortTable = sortTable;
+})();
+</script>
+</body>
+</html>

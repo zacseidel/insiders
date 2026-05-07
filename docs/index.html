@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insider Buying Tracker</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; color: #212121; background: #FAFAFA; line-height: 1.6; }
+  a { color: #1565C0; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .page-wrap { max-width: 860px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  .site-header { border-bottom: 2px solid #1565C0; padding-bottom: 16px; margin-bottom: 32px; }
+  .site-header h1 { font-size: 26px; font-weight: 700; color: #0D47A1; letter-spacing: 0.03em; text-transform: uppercase; }
+  .site-header .tagline { font-size: 14px; color: #666; margin-top: 4px; }
+
+  .about-section { margin-bottom: 32px; }
+  .about-section p { font-size: 14px; color: #424242; margin-bottom: 12px; }
+
+  .disclaimer { background: #FFF8E1; border-left: 3px solid #FFC107; padding: 14px 16px; border-radius: 4px; margin-bottom: 36px; font-size: 13px; color: #5D4037; line-height: 1.6; }
+  .disclaimer strong { display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: #E65100; }
+
+  .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #555; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid #E0E0E0; }
+
+  .archive-table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #F5F5F5; color: #555; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 9px 12px; text-align: left; border-bottom: 2px solid #E0E0E0; white-space: nowrap; }
+  td { padding: 9px 12px; border-bottom: 1px solid #F0F0F0; vertical-align: middle; }
+  tr:hover td { background: #F5F5F5; }
+  .td-date a { font-weight: 600; color: #0D47A1; }
+  .td-value { color: #1B5E20; font-weight: 600; }
+  .td-top { color: #424242; font-size: 13px; }
+
+  .no-reports { color: #999; font-size: 14px; padding: 24px 0; }
+
+  .site-footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #E0E0E0; font-size: 12px; color: #999; }
+  .site-footer a { color: #999; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="site-header">
+    <h1>Insider Buying Tracker</h1>
+    <div class="tagline">Open-market insider purchases from SEC EDGAR Form 4 filings</div>
+  </div>
+
+  <div class="about-section">
+    <p>
+      Corporate insiders — executives, officers, and board members — are required by the SEC to publicly disclose
+      when they buy or sell shares of their own company. This tracker focuses exclusively on
+      <strong>open-market purchases</strong> (transaction code "P"), the strongest publicly available signal of
+      insider conviction. When an officer spends their own money buying shares on the open market, they are
+      making a direct bet on their company's future.
+    </p>
+    <p>
+      Insider <em>sales</em> are noisy — executives sell for tax planning, diversification, estate planning,
+      and hundreds of other personal reasons. Insider <em>buys</em> are different: there is almost no reason
+      to buy your own company's stock on the open market except the belief that it is undervalued.
+      This tool captures every such purchase filed with the SEC and ranks them by significance.
+    </p>
+    <p>
+      Each report covers a rolling 7-day window. The pipeline runs twice weekly (Tuesday and Friday) via
+      GitHub Actions, pulling filings from SEC EDGAR, enriching them with company context from Polygon.io,
+      and generating price charts with insider buy markers. Reports are published automatically to this page.
+    </p>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Disclaimer</strong>
+    This tool is for informational and educational purposes only. It is not investment advice. The data is
+    sourced from SEC EDGAR filings and may contain errors or omissions. Insider buying activity is one of
+    many signals and does not guarantee future performance. Always do your own research before making any
+    investment decisions. Past insider buying activity does not predict future returns.
+    <br><br>
+    <a href="about.html" style="color:#E65100; font-weight:600;">Read the full documentation →</a>
+  </div>
+
+  <div class="section-title" style="display:flex; align-items:center; justify-content:space-between;">
+    <span>Weekly Reports</span>
+    <a href="performance.html" style="font-size:12px; font-weight:600; color:#1565C0; letter-spacing:0.02em;">View Performance Tracker →</a>
+  </div>
+
+  
+  <div class="archive-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Report Date</th>
+          <th>Window</th>
+          <th style="text-align:right">Buys</th>
+          <th style="text-align:right">Total Value</th>
+          <th>Top Buy</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2026-05-05.html">2026-05-05</a></td>
+          <td style="color:#888; font-size:12px;">Apr 28 – May 05</td>
+          <td style="text-align:right">197</td>
+          <td style="text-align:right" class="td-value">$737.6M</td>
+          <td class="td-top">President @ BOT  $2.5M</td>
+        </tr>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2026-05-01.html">2026-05-01</a></td>
+          <td style="color:#888; font-size:12px;">Apr 24 – May 01</td>
+          <td style="text-align:right">153</td>
+          <td style="text-align:right" class="td-value">$120.2M</td>
+          <td class="td-top">President @ PSUS  $12.5M</td>
+        </tr>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2026-04-28.html">2026-04-28</a></td>
+          <td style="color:#888; font-size:12px;">Apr 28 – Apr 28</td>
+          <td style="text-align:right">25</td>
+          <td style="text-align:right" class="td-value">$25.2M</td>
+          <td class="td-top">President and CEO @ CHTR  $597K</td>
+        </tr>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2026-04-24.html">2026-04-24</a></td>
+          <td style="color:#888; font-size:12px;">Apr 17 – Apr 24</td>
+          <td style="text-align:right">128</td>
+          <td style="text-align:right" class="td-value">$447.2M</td>
+          <td class="td-top"> @ ALMR  $4.0M</td>
+        </tr>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2026-04-21.html">2026-04-21</a></td>
+          <td style="color:#888; font-size:12px;">Apr 14 – Apr 21</td>
+          <td style="text-align:right">81</td>
+          <td style="text-align:right" class="td-value">$387.1M</td>
+          <td class="td-top"> @ ALMR  $4.0M</td>
+        </tr>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2026-04-17.html">2026-04-17</a></td>
+          <td style="color:#888; font-size:12px;">Apr 10 – Apr 17</td>
+          <td style="text-align:right">70</td>
+          <td style="text-align:right" class="td-value">$11761.4M</td>
+          <td class="td-top"> @ BEAT  $150K</td>
+        </tr>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2026-04-14.html">2026-04-14</a></td>
+          <td style="color:#888; font-size:12px;">Apr 07 – Apr 14</td>
+          <td style="text-align:right">131</td>
+          <td style="text-align:right" class="td-value">$136.2M</td>
+          <td class="td-top">PRESIDENT &amp; CEO @ NKE  $1000K</td>
+        </tr>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2026-04-10.html">2026-04-10</a></td>
+          <td style="color:#888; font-size:12px;">Apr 03 – Apr 10</td>
+          <td style="text-align:right">83</td>
+          <td style="text-align:right" class="td-value">$42.9M</td>
+          <td class="td-top">Chief Financial Officer @ HMH  $1.0M</td>
+        </tr>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2025-11-18.html">2025-11-18</a></td>
+          <td style="color:#888; font-size:12px;">Nov 11 – Nov 18</td>
+          <td style="text-align:right">462</td>
+          <td style="text-align:right" class="td-value">$272.6M</td>
+          <td class="td-top">Chief Financial Officer @ LINE  $1.0M</td>
+        </tr>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2025-11-14.html">2025-11-14</a></td>
+          <td style="color:#888; font-size:12px;">Nov 07 – Nov 14</td>
+          <td style="text-align:right">118</td>
+          <td style="text-align:right" class="td-value">$33.1M</td>
+          <td class="td-top">EVP and CFO @ GEF, GEF-B  $846K</td>
+        </tr>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2025-11-11.html">2025-11-11</a></td>
+          <td style="color:#888; font-size:12px;">Nov 04 – Nov 11</td>
+          <td style="text-align:right">320</td>
+          <td style="text-align:right" class="td-value">$335.5M</td>
+          <td class="td-top">Chief Financial Officer @ RLMD  $1.1M</td>
+        </tr>
+        
+        <tr>
+          <td class="td-date"><a href="reports/2025-11-07.html">2025-11-07</a></td>
+          <td style="color:#888; font-size:12px;">Oct 31 – Nov 07</td>
+          <td style="text-align:right">95</td>
+          <td style="text-align:right" class="td-value">$183.9M</td>
+          <td class="td-top">Chief Financial Officer @ RLMD  $1.1M</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  
+
+  <div class="site-footer">
+    Data: <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=4&dateb=&owner=include&count=40" target="_blank">SEC EDGAR</a>
+    &nbsp;·&nbsp;
+    Prices: <a href="https://polygon.io" target="_blank">Polygon.io</a>
+    &nbsp;·&nbsp;
+    Updated Tue/Fri 6AM MT via GitHub Actions
+    &nbsp;·&nbsp;
+    <a href="https://github.com/zacseidel/insiders" target="_blank">Source</a>
+  </div>
+
+</div>
+</body>
+</html>

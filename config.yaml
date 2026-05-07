@@ -1,0 +1,39 @@
+edgar:
+  user_agent: "InsiderBuyTracker contact@example.com"
+  rate_limit_delay_ms: 150
+  max_retries: 3
+
+polygon:
+  rate_limit_calls_per_min: 5
+  cache_ttl_days: 30
+  chart_lookback_days: 180
+  news_limit: 5
+  max_enrichment_tickers: 80
+
+pipeline:
+  lookback_days: 7
+  mode: "rolling"
+
+scoring:
+  value_thresholds:
+    - { min: 1000000, points: 3 }
+    - { min: 500000, points: 2 }
+    - { min: 100000, points: 1 }
+  pct_increase_thresholds:
+    - { min: 50, points: 2 }
+    - { min: 25, points: 1 }
+  role_points:
+    c_suite: 2
+    officer: 1
+    director: 1
+    ten_pct_owner: 0
+  cluster_bonus: 3
+
+filters:
+  min_transaction_value: 10000
+  exclude_10pct_only: true
+  transaction_codes: ["P"]
+
+report:
+  top_individual_detail_count: 15
+  description_max_chars: 500

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Insider Buying Tracker</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 15px; color: #212121; background: #FAFAFA; line-height: 1.7; }
+  a { color: #1565C0; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .page-wrap { max-width: 820px; margin: 0 auto; padding: 24px 20px 80px; }
+
+  .back-link { font-size: 13px; color: #666; margin-bottom: 24px; display: inline-block; }
+  .back-link::before { content: "← "; }
+
+  .page-header { border-bottom: 2px solid #1565C0; padding-bottom: 16px; margin-bottom: 36px; }
+  .page-header h1 { font-size: 22px; font-weight: 700; color: #0D47A1; letter-spacing: 0.03em; text-transform: uppercase; }
+  .page-header .subtitle { font-size: 14px; color: #666; margin-top: 4px; }
+
+  .disclaimer {
+    background: #FFF8E1;
+    border-left: 3px solid #FFC107;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin-bottom: 40px;
+    font-size: 13px;
+    color: #5D4037;
+    line-height: 1.7;
+  }
+  .disclaimer strong { display: block; margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #E65100; }
+
+  h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0D47A1;
+    margin: 40px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #E0E0E0;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    margin: 24px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  p { margin-bottom: 14px; color: #333; }
+  ul, ol { margin: 0 0 16px 20px; }
+  li { margin-bottom: 7px; color: #333; }
+
+  .pipeline-steps { list-style: none; margin-left: 0; counter-reset: step; }
+  .pipeline-steps li {
+    counter-increment: step;
+    padding: 14px 16px 14px 56px;
+    position: relative;
+    background: #fff;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  .pipeline-steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 16px;
+    top: 14px;
+    width: 26px;
+    height: 26px;
+    background: #0D47A1;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .pipeline-steps li strong { display: block; font-size: 14px; color: #0D47A1; margin-bottom: 4px; }
+  .pipeline-steps li span { font-size: 13px; color: #555; }
+
+  .score-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; }
+  .score-table th { background: #F5F5F5; color: #555; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 9px 12px; text-align: left; border-bottom: 2px solid #E0E0E0; }
+  .score-table td { padding: 9px 12px; border-bottom: 1px solid #F0F0F0; vertical-align: top; }
+  .score-table tr:last-child td { border-bottom: none; }
+  .score-badge { display: inline-block; background: #0D47A1; color: #fff; font-size: 12px; font-weight: 700; padding: 2px 7px; border-radius: 3px; }
+  .score-badge.amber { background: #E65100; }
+  .score-badge.red { background: #F44336; }
+  .score-badge.gray { background: #9E9E9E; }
+
+  .issue-block { background: #fff; border: 1px solid #E0E0E0; border-radius: 6px; padding: 16px 20px; margin-bottom: 12px; }
+  .issue-block .issue-title { font-weight: 700; color: #333; margin-bottom: 6px; font-size: 14px; }
+  .issue-block .issue-problem { font-size: 13px; color: #C62828; margin-bottom: 6px; }
+  .issue-block .issue-fix { font-size: 13px; color: #2E7D32; }
+  .issue-block .issue-problem::before { content: "Problem: "; font-weight: 600; }
+  .issue-block .issue-fix::before { content: "How we handle it: "; font-weight: 600; }
+
+  code { background: #F5F5F5; border: 1px solid #E0E0E0; border-radius: 3px; padding: 1px 5px; font-size: 13px; font-family: monospace; color: #333; }
+
+  .source-card { background: #fff; border: 1px solid #E0E0E0; border-radius: 6px; padding: 16px 20px; margin-bottom: 12px; }
+  .source-card .source-name { font-size: 15px; font-weight: 700; color: #0D47A1; margin-bottom: 4px; }
+  .source-card .source-what { font-size: 13px; color: #555; margin-bottom: 8px; }
+  .source-card ul { margin-bottom: 0; }
+  .source-card li { font-size: 13px; }
+
+  .site-footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #E0E0E0; font-size: 12px; color: #999; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <a href="index.html" class="back-link">Back to Archive</a>
+
+  <div class="page-header">
+    <h1>About This Project</h1>
+    <div class="subtitle">How the Insider Buying Tracker works, what it looks for, and what it doesn't do</div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Disclaimer</strong>
+    This project is a personal hobby tool built for fun and learning. It is not investment advice of any kind.
+    The data comes from public SEC filings and may contain errors, omissions, or misparses. Insider buying is
+    one data point among many — it is not a reliable predictor of future stock performance, and many historically
+    high-scoring insider buys have resulted in losses. Do not make investment decisions based on this tool.
+    Past results have no predictive value. The author may or may not have a financial interest in any companies shown.
+  </div>
+
+
+  <h2>What This Is</h2>
+
+  <p>
+    Corporate insiders — executives, directors, and large shareholders — are required by the SEC to publicly
+    disclose when they buy or sell shares of their own company using <strong>Form 4</strong>. This tool
+    automatically pulls those filings twice a week, filters them down to open-market purchases specifically,
+    enriches them with company context and price charts, and publishes a report.
+  </p>
+  <p>
+    The core thesis is simple: insider <em>sales</em> are noisy. Executives sell for a hundred different
+    reasons — estate planning, taxes, diversification, a divorce, a new house. Insider <em>buys</em> are
+    different. There is almost no reason to go into the open market and spend your own money buying your
+    company's stock unless you genuinely believe it is undervalued. This tool tries to separate that signal
+    from the noise of the broader Form 4 filings.
+  </p>
+  <p>
+    It is not trying to be comprehensive market research. It is a structured way of seeing what insiders
+    are doing with their own money, filtered and ranked so the most interesting buys surface first.
+  </p>
+
+
+  <h2>The Pipeline</h2>
+
+  <p>The pipeline runs automatically every Tuesday and Friday at 6 AM Mountain Time via GitHub Actions.
+  Each run covers a rolling 7-day window, so Tuesday's report and Friday's report are independent snapshots
+  rather than an accumulated weekly total.</p>
+
+  <ol class="pipeline-steps">
+    <li>
+      <strong>Fetch Form 4 filings — SEC EDGAR</strong>
+      <span>Query the SEC full-text search index for all Form 4 filings in the 7-day window. For each filing, download the raw XML and extract every non-derivative transaction where the transaction code is <code>P</code> (open-market purchase) and the acquired/disposed code is <code>A</code> (acquired). Output: a JSON file of raw transactions.</span>
+    </li>
+    <li>
+      <strong>Enrich — Polygon.io</strong>
+      <span>For each unique ticker in the raw data, call Polygon to get the company description, sector, market cap, and recent news headlines. Company details are cached for 30 days (they rarely change); news is always fresh. Tickers are prioritized by transaction value so the most significant buys get enriched first if the API budget runs short.</span>
+    </li>
+    <li>
+      <strong>Generate price charts — Polygon.io</strong>
+      <span>For the top-ranked companies (those that will get a full card in the report), fetch 6 months of daily price data and generate a chart showing the price line, 50-day and 200-day moving averages, and vertical markers on each insider buy date. Charts are encoded as base64 and embedded directly in the HTML — no external image hosting needed.</span>
+    </li>
+    <li>
+      <strong>Score and rank</strong>
+      <span>Apply a scoring heuristic to each transaction based on dollar value, percentage position increase, insider role, and whether multiple insiders at the same company bought in the same window (a "cluster buy"). See the scoring section below for the full breakdown.</span>
+    </li>
+    <li>
+      <strong>Generate the report</strong>
+      <span>Render a self-contained HTML report. The top 15 transactions by score get a full card with company description, recent headlines, and a price chart. Everything else appears in a sortable summary table. The index page is rebuilt with a link to the new report.</span>
+    </li>
+    <li>
+      <strong>Update the performance tracker</strong>
+      <span>Record the closing price of each flagged stock on the report date (using Polygon's grouped daily endpoint — one API call returns prices for all US stocks simultaneously). On each subsequent run, fetch the latest prices and compute how each flagged buy has performed since it was flagged.</span>
+    </li>
+  </ol>
+
+
+  <h2>Form 4 Filings — What They Are and What Can Go Wrong</h2>
+
+  <p>
+    Form 4 is a mandatory SEC disclosure filed by corporate insiders within two business days of any transaction
+    in their company's securities. Each filing contains the insider's identity, their relationship to the company
+    (officer, director, 10%+ owner), the security type, and one or more transaction records detailing the date,
+    shares, price, and a transaction code describing the type of transaction.
+  </p>
+  <p>
+    The raw filing feed is noisy. Here are the most common problems and how this pipeline handles each one.
+  </p>
+
+  <div class="issue-block">
+    <div class="issue-title">Non-purchase transactions look like purchases</div>
+    <div class="issue-problem">Most Form 4 transactions are not open-market purchases. Grants (<code>A</code>),
+    option exercises (<code>M</code>, <code>X</code>), tax withholding (<code>F</code>), gifts (<code>G</code>),
+    and other non-economic transfers all show up in the same filing structure and at a glance look similar to
+    real purchases.</div>
+    <div class="issue-fix">The pipeline filters strictly to transaction code <code>P</code>
+    (open-market purchase) combined with acquired/disposed code <code>A</code> (acquired). Every other
+    transaction type is discarded entirely.</div>
+  </div>
+
+  <div class="issue-block">
+    <div class="issue-title">Amended filings (Form 4/A)</div>
+    <div class="issue-problem">An insider can file a corrected Form 4, called a 4/A, days or weeks after the
+    original. Without handling this, the same transaction appears twice — once from the original filing and
+    once from the amendment — inflating counts and potentially showing a corrected price alongside the wrong
+    original price.</div>
+    <div class="issue-fix">Transactions are keyed by accession number and position index within the filing
+    (<code>accession:index</code>). When a 4/A is processed, its accession key overwrites the matching
+    original entry rather than appending a new one.</div>
+  </div>
+
+  <div class="issue-block">
+    <div class="issue-title">Missing or footnoted prices</div>
+    <div class="issue-problem">SEC rules allow the price field to be blank if the price is described in a
+    footnote (common for transactions executed under a 10b5-1 plan, or when the exact price is a weighted
+    average across multiple trades). A missing price makes it impossible to compute total transaction value.</div>
+    <div class="issue-fix">Transactions with null prices are retained rather than discarded — a large share
+    count without a stated price is still informative. They appear in the report with "N/A" for value-based
+    fields and receive a reduced score since value-tier scoring cannot apply.</div>
+  </div>
+
+  <div class="issue-block">
+    <div class="issue-title">10% owners are a different signal than officers</div>
+    <div class="issue-problem">Large funds and activist investors holding 10%+ of a company must also file
+    Form 4. Their purchases are often portfolio rebalancing, index reconstitution, or follow-on investments
+    in a company they already control — not a vote of confidence from someone with operational insight into
+    the business.</div>
+    <div class="issue-fix">10% owners receive zero role-based scoring points (compared to +1 for directors
+    and +2 for C-suite officers). They still appear in the report if their transaction value is large, but
+    they score lower and are harder to surface above genuine officer buys.</div>
+  </div>
+
+  <div class="issue-block">
+    <div class="issue-title">Derivative securities vs. direct share purchases</div>
+    <div class="issue-problem">Form 4 contains two tables: one for non-derivative securities (actual shares)
+    and one for derivatives (options, warrants, convertible notes). An executive exercising options and
+    simultaneously purchasing shares might look like a very large buy in aggregate.</div>
+    <div class="issue-fix">Only the non-derivative table is processed. Derivative transactions of any kind
+    are ignored entirely, regardless of transaction code.</div>
+  </div>
+
+  <div class="issue-block">
+    <div class="issue-title">Missing ticker symbols</div>
+    <div class="issue-problem">The ticker symbol in a Form 4 XML filing is provided by the filer and is
+    sometimes blank, misspelled, or stale (the company has since been acquired or renamed). Without a
+    ticker, Polygon enrichment and chart generation are impossible.</div>
+    <div class="issue-fix">The SEC publishes a CIK-to-ticker mapping file that is refreshed weekly.
+    Any transaction with a blank ticker field is resolved against this mapping using the issuer's CIK.
+    Transactions that remain unresolved after this step are included in the report table but skipped
+    for Polygon enrichment.</div>
+  </div>
+
+  <div class="issue-block">
+    <div class="issue-title">Filing date vs. transaction date</div>
+    <div class="issue-problem">Insiders have up to two business days to file after a transaction. The
+    filing date and the transaction date can differ by several days. A purchase made on Monday might
+    only appear in the system on Wednesday.</div>
+    <div class="issue-fix">Both dates are stored and displayed. The 7-day rolling window uses the
+    <em>filing date</em> for retrieval (since that is what EDGAR indexes), but the report shows the
+    <em>transaction date</em> as the date the insider actually bought. Price charts mark the transaction
+    date, not the filing date.</div>
+  </div>
+
+
+  <h2>Scoring</h2>
+
+  <p>
+    Each transaction receives a score between 0 and ~14 based on four independent signals. Scores are
+    additive — a transaction can qualify for points in multiple categories simultaneously. The scoring
+    weights are all configurable in <code>config.yaml</code>.
+  </p>
+
+  <h3>Dollar Value — Skin in the Game</h3>
+  <p>The most direct measure of conviction is how much the insider actually spent.</p>
+  <table class="score-table">
+    <thead><tr><th>Transaction Value</th><th>Points</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr><td>≥ $1,000,000</td><td><span class="score-badge">+3</span></td><td>Significant personal commitment. Hard to dismiss as routine.</td></tr>
+      <tr><td>≥ $500,000</td><td><span class="score-badge">+2</span></td><td>Meaningful but not outsized.</td></tr>
+      <tr><td>≥ $100,000</td><td><span class="score-badge">+1</span></td><td>Above the noise floor. Worth tracking.</td></tr>
+      <tr><td>&lt; $100,000</td><td><span class="score-badge gray">+0</span></td><td>Potentially routine or nominal. Still shown in the table.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Position Increase — Proportional Conviction</h3>
+  <p>A $50,000 purchase by someone who already holds $10 million of stock is less interesting than the same
+  purchase by someone doubling their position from scratch. This signal measures how much the insider's
+  stake grew as a percentage of their pre-purchase holding.</p>
+  <table class="score-table">
+    <thead><tr><th>Position Increase</th><th>Points</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr><td>≥ 50% increase</td><td><span class="score-badge amber">+2</span></td><td>The insider dramatically increased their exposure.</td></tr>
+      <tr><td>≥ 25% increase</td><td><span class="score-badge amber">+1</span></td><td>A meaningful proportional increase in skin in the game.</td></tr>
+      <tr><td>&lt; 25% increase</td><td><span class="score-badge gray">+0</span></td><td>Incremental add-on. Less meaningful on its own.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Role — Information Advantage</h3>
+  <p>An insider's informational advantage depends on their role. The CEO and CFO have the clearest view
+  of the business's trajectory. A board director has less day-to-day visibility. A 10% owner is often
+  an institutional investor with no operational insight at all.</p>
+  <table class="score-table">
+    <thead><tr><th>Role</th><th>Points</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>C-suite officer (CEO, CFO, COO, CTO, President)</td><td><span class="score-badge">+2</span></td><td>Highest operational visibility.</td></tr>
+      <tr><td>Other officer</td><td><span class="score-badge">+1</span></td><td>EVP, SVP, GC, VP-level roles.</td></tr>
+      <tr><td>Director</td><td><span class="score-badge">+1</span></td><td>Board-level visibility without daily operations.</td></tr>
+      <tr><td>10%+ owner only</td><td><span class="score-badge gray">+0</span></td><td>Often fund rebalancing with no operational insight.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Cluster Buys — The Strongest Signal</h3>
+  <p>
+    When multiple insiders at the same company independently purchase shares in the same week, it is
+    rarely a coincidence. Each insider made the decision separately; each one looked at the same business
+    and reached the same conclusion. Academic research consistently shows that cluster insider buying
+    is one of the highest-signal patterns in public market data.
+  </p>
+  <table class="score-table">
+    <thead><tr><th>Signal</th><th>Points</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>≥ 2 distinct insiders buying the same company in the same window</td>
+        <td><span class="score-badge red">+3</span></td>
+        <td>Applied to every qualifying transaction at that company. A 3-insider cluster adds +3 to each of the three transactions individually.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Cluster buys are also visually separated in the report — they appear before the ranked individual
+    buys section, regardless of absolute score.
+  </p>
+
+
+  <h2>Data Sources</h2>
+
+  <div class="source-card">
+    <div class="source-name">SEC EDGAR — Form 4 Filings</div>
+    <div class="source-what">The primary data source. Free, no API key required. Rate limit: 10 requests/second.</div>
+    <ul>
+      <li><strong>EFTS full-text search</strong> (<code>efts.sec.gov</code>) — indexes all filed documents and supports date-range queries by form type. Returns filing metadata and the name of the primary XML document.</li>
+      <li><strong>Filing XML</strong> (<code>www.sec.gov/Archives/edgar/data/…</code>) — the actual Form 4 document parsed to extract transaction details, insider identity, and company information.</li>
+      <li><strong>CIK-to-ticker mapping</strong> (<code>www.sec.gov/files/company_tickers.json</code>) — maps SEC company identifiers to stock tickers. Refreshed weekly.</li>
+    </ul>
+  </div>
+
+  <div class="source-card">
+    <div class="source-name">Polygon.io — Market Data</div>
+    <div class="source-what">Used for company context and price data. Free tier: 5 API calls/minute. The pipeline is designed around this constraint.</div>
+    <ul>
+      <li><strong>Ticker Details V3</strong> — company description, SIC sector code, market cap, employee count. Cached per ticker for 30 days.</li>
+      <li><strong>Ticker News</strong> — the 5 most recent news headlines for each company. Always fetched fresh (not cached).</li>
+      <li><strong>Aggregates (daily bars)</strong> — 6 months of daily OHLCV data used for chart generation. Also provides current price and 52-week range.</li>
+      <li><strong>Grouped Daily</strong> — one API call returns closing prices for all US stocks on a given trading day. Used by the performance tracker to snapshot prices at each report date and compute subsequent returns.</li>
+    </ul>
+  </div>
+
+  <p style="margin-top: 20px;">
+    Polygon calls are interleaved per ticker: for each company, all three calls (details, news, aggregates)
+    are made together before moving to the next. This ensures every company that gets enriched also gets a
+    chart. If the API budget runs out mid-run, the remaining companies appear in the report without
+    Polygon data rather than having mismatched partial enrichment.
+  </p>
+  <p>
+    Tickers are prioritized by transaction value before enrichment begins, so the highest-value buys are
+    enriched first. The pipeline caps enrichment at 80 unique tickers per run to avoid runaway API usage
+    during high-volume weeks like earnings season.
+  </p>
+
+
+  <h2>What This Tool Does Not Do</h2>
+
+  <ul>
+    <li>It does not track insider <em>sales</em>. Sales are intentionally excluded as a noisy signal.</li>
+    <li>It does not normalize for market conditions. A buy during a broad market selloff scores the same as a buy in a rally.</li>
+    <li>It does not track insider track records over time. There is no history of which insiders have been right before.</li>
+    <li>It does not cross-reference with 13F filings, earnings calendars, or other public disclosures.</li>
+    <li>It does not filter out 10b5-1 plan purchases (pre-scheduled automatic buy programs), which are less discretionary than truly spontaneous purchases. The SEC does not always distinguish these clearly in Form 4 XML.</li>
+    <li>It is not real-time. There is a 2–5 day lag between when a transaction occurs and when it appears in a report.</li>
+  </ul>
+
+
+  <div class="site-footer">
+    Built with Python, SEC EDGAR, and Polygon.io &nbsp;·&nbsp;
+    <a href="https://github.com/zacseidel/insiders" target="_blank">Source on GitHub</a>
+    &nbsp;·&nbsp;
+    <a href="index.html">Back to Archive</a>
+  </div>
+
+</div>
+</body>
+</html>

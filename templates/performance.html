@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance Tracker — Insider Buying</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; color: #212121; background: #FAFAFA; line-height: 1.5; }
+  a { color: #1565C0; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .page-wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  .back-link { font-size: 13px; color: #666; margin-bottom: 20px; display: inline-block; }
+  .back-link::before { content: "← "; }
+
+  .page-header { border-bottom: 2px solid #1565C0; padding-bottom: 16px; margin-bottom: 24px; }
+  .page-header h1 { font-size: 22px; font-weight: 700; color: #0D47A1; letter-spacing: 0.03em; text-transform: uppercase; }
+  .page-header .meta { font-size: 13px; color: #666; margin-top: 4px; }
+
+  .explainer { background: #fff; border: 1px solid #E0E0E0; border-radius: 6px; padding: 14px 18px; margin-bottom: 28px; font-size: 13px; color: #555; line-height: 1.6; }
+
+  .date-group { margin-bottom: 36px; }
+  .date-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #E0E0E0; }
+  .date-header .date-label { font-size: 16px; font-weight: 700; color: #0D47A1; }
+  .date-header a { font-size: 13px; color: #888; }
+  .date-header .summary-chips { display: flex; gap: 10px; margin-left: auto; flex-wrap: wrap; }
+  .chip { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 3px; background: #F5F5F5; color: #555; }
+  .chip.positive { background: #E8F5E9; color: #2E7D32; }
+  .chip.negative { background: #FFEBEE; color: #C62828; }
+  .chip.neutral { background: #F5F5F5; color: #555; }
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #F5F5F5; color: #555; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 10px; text-align: left; white-space: nowrap; border-bottom: 2px solid #E0E0E0; }
+  td { padding: 7px 10px; border-bottom: 1px solid #F0F0F0; vertical-align: middle; }
+  tr:hover td { background: #FAFAFA; }
+  .td-ticker { font-weight: 700; color: #0D47A1; font-size: 14px; }
+  .td-insider { color: #424242; }
+  .td-title { color: #888; font-size: 12px; }
+  .td-score { font-weight: 700; color: #0D47A1; }
+  .td-price { font-family: monospace; font-size: 13px; color: #424242; }
+  .td-value { color: #1B5E20; font-weight: 600; }
+
+  .change-positive { color: #2E7D32; font-weight: 700; }
+  .change-negative { color: #C62828; font-weight: 700; }
+  .change-na { color: #BDBDBD; }
+
+  .cluster-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #F44336; margin-right: 4px; vertical-align: middle; title: "Cluster buy"; }
+
+  .no-data { color: #999; font-size: 13px; padding: 20px 0; }
+
+  .site-footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #E0E0E0; font-size: 12px; color: #999; }
+
+  @media (max-width: 640px) {
+    .date-header { flex-wrap: wrap; }
+    .date-header .summary-chips { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <a href="index.html" class="back-link">Back to Archive</a>
+
+  <div class="page-header">
+    <h1>Performance Tracker</h1>
+    <div class="meta">How flagged insider buys performed · Prices as of {{ current_date_fmt }}</div>
+  </div>
+
+  <div class="explainer">
+    For each insider buy flagged in a report, this page shows the stock's closing price on the
+    report date ("price when flagged") and its current price — so you can see how each signal
+    played out over time. Grouped by report date, sorted by score within each group.
+    <br><br>
+    <strong>Price when flagged</strong> = closing price on the report run date (not the insider's buy price).
+    <strong>Buy price</strong> = what the insider actually paid per share (from the SEC filing).
+  </div>
+
+  {% if not grouped %}
+  <p class="no-data">No performance data yet. Run <code>update_performance.py</code> to populate.</p>
+  {% endif %}
+
+  {% for group in grouped %}
+  <div class="date-group">
+    <div class="date-header">
+      <span class="date-label">{{ group.report_date }}</span>
+      <a href="reports/{{ group.report_date }}.html">View report →</a>
+      <div class="summary-chips">
+        <span class="chip">{{ group.count }} buys</span>
+        {% if group.avg_change_pct is not none %}
+          {% if group.avg_change_pct > 0 %}
+          <span class="chip positive">Avg +{{ group.avg_change_pct }}%</span>
+          {% elif group.avg_change_pct < 0 %}
+          <span class="chip negative">Avg {{ group.avg_change_pct }}%</span>
+          {% else %}
+          <span class="chip neutral">Avg 0%</span>
+          {% endif %}
+          <span class="chip">{{ group.winners }}/{{ group.with_data }} up</span>
+        {% endif %}
+        {% if group.avg_alpha is not none %}
+          {% if group.avg_alpha > 0 %}
+          <span class="chip positive">vs SPY +{{ group.avg_alpha }}%</span>
+          {% elif group.avg_alpha < 0 %}
+          <span class="chip negative">vs SPY {{ group.avg_alpha }}%</span>
+          {% else %}
+          <span class="chip neutral">vs SPY 0%</span>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Company</th>
+            <th>Insider</th>
+            <th>Title</th>
+            <th style="text-align:right">Score</th>
+            <th style="text-align:right">Buy Price</th>
+            <th style="text-align:right">Buy Value</th>
+            <th style="text-align:right">At Flag</th>
+            <th style="text-align:right">Current</th>
+            <th style="text-align:right">Change</th>
+            <th style="text-align:right">SPY Same Period</th>
+            <th style="text-align:right">Alpha</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tx in group.transactions %}
+          <tr>
+            <td class="td-ticker">
+              {% if tx.cluster_id %}<span class="cluster-dot" title="Cluster buy"></span>{% endif %}
+              {{ tx.ticker }}
+            </td>
+            <td>{{ tx.company_name }}</td>
+            <td class="td-insider">{{ tx.insider_name }}</td>
+            <td class="td-title">{{ tx.insider_title or "—" }}</td>
+            <td style="text-align:right" class="td-score">{{ tx.score }}</td>
+            <td style="text-align:right" class="td-price">
+              {% if tx.buy_price %}${{ "%.2f"|format(tx.buy_price) }}{% else %}—{% endif %}
+            </td>
+            <td style="text-align:right" class="td-value">{{ fmt_value(tx.total_value) }}</td>
+            <td style="text-align:right" class="td-price">
+              {% if tx.price_at_report %}${{ "%.2f"|format(tx.price_at_report) }}{% else %}<span class="change-na">—</span>{% endif %}
+            </td>
+            <td style="text-align:right" class="td-price">
+              {% if tx.current_price %}${{ "%.2f"|format(tx.current_price) }}{% else %}<span class="change-na">—</span>{% endif %}
+            </td>
+            <td style="text-align:right">
+              {% if tx.change_pct is not none %}
+                {% if tx.change_pct > 0 %}
+                <span class="change-positive">+{{ "%.1f"|format(tx.change_pct) }}%</span>
+                {% elif tx.change_pct < 0 %}
+                <span class="change-negative">{{ "%.1f"|format(tx.change_pct) }}%</span>
+                {% else %}<span>0.0%</span>
+                {% endif %}
+              {% else %}<span class="change-na">—</span>
+              {% endif %}
+            </td>
+            <td style="text-align:right" class="td-price">
+              {% if tx.spy_change_pct is not none %}
+                {% if tx.spy_change_pct > 0 %}
+                <span style="color:#888">+{{ "%.1f"|format(tx.spy_change_pct) }}%</span>
+                {% elif tx.spy_change_pct < 0 %}
+                <span style="color:#888">{{ "%.1f"|format(tx.spy_change_pct) }}%</span>
+                {% else %}<span style="color:#888">0.0%</span>
+                {% endif %}
+              {% else %}<span class="change-na">—</span>
+              {% endif %}
+            </td>
+            <td style="text-align:right">
+              {% if tx.alpha is not none %}
+                {% if tx.alpha > 0 %}
+                <span class="change-positive">+{{ "%.1f"|format(tx.alpha) }}%</span>
+                {% elif tx.alpha < 0 %}
+                <span class="change-negative">{{ "%.1f"|format(tx.alpha) }}%</span>
+                {% else %}<span>0.0%</span>
+                {% endif %}
+              {% else %}<span class="change-na">—</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="site-footer">
+    Data: <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=4" target="_blank">SEC EDGAR</a>
+    &nbsp;·&nbsp; Prices: <a href="https://polygon.io" target="_blank">Polygon.io</a>
+    &nbsp;·&nbsp; Updated with each pipeline run
+  </div>
+
+</div>
+</body>
+</html>
