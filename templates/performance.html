@@ -1,202 +1,266 @@
+{% macro pct(value, muted=false) -%}
+  {% if value is none %}
+    <span class="metric-na">Insufficient history</span>
+  {% elif value > 0 %}
+    <span class="positive{% if muted %} muted{% endif %}">+{{ "%.2f"|format(value) }}%</span>
+  {% elif value < 0 %}
+    <span class="negative{% if muted %} muted{% endif %}">{{ "%.2f"|format(value) }}%</span>
+  {% else %}
+    <span class="{% if muted %}muted{% endif %}">0.00%</span>
+  {% endif %}
+{%- endmacro %}
+
+{% macro position_table(positions, state) -%}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Security</th>
+          <th>Report</th>
+          <th class="number">Rank Signal</th>
+          <th>Entry</th>
+          <th>Target Exit</th>
+          <th>{% if state == "open" %}Current Mark{% else %}Exit{% endif %}</th>
+          <th class="number">Return</th>
+          <th class="number">SPY</th>
+          <th class="number">Excess</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for position in positions %}
+        <tr>
+          <td>
+            <span class="ticker">{{ position.ticker }}</span>
+            <span class="company">{{ position.company_name }}</span>
+          </td>
+          <td>
+            <a href="reports/{{ position.report_date }}.html">{{ position.report_date }}</a>
+            <span class="subtle">#{{ position.rank }} · {{ position.transaction_count }} buy{% if position.transaction_count != 1 %}s{% endif %}</span>
+          </td>
+          <td class="number">
+            {% if position.rank_metric == "size" %}
+              {{ fmt_money(position.rank_value) }}
+            {% else %}
+              {{ "%.0f"|format(position.rank_value) }} pts
+            {% endif %}
+          </td>
+          <td class="price-cell">
+            {% if position.entry_date %}
+              {{ position.entry_date }}
+              <span class="subtle">${{ "%.2f"|format(position.entry_price) }}</span>
+            {% else %}
+              <span class="metric-na">Pending</span>
+            {% endif %}
+          </td>
+          <td>{{ position.target_exit_date }}</td>
+          <td class="price-cell">
+            {% if position.valuation_date %}
+              {{ position.valuation_date }}
+              <span class="subtle">${{ "%.2f"|format(position.exit_price) }}</span>
+            {% else %}
+              <span class="metric-na">{{ position.status_reason or "Pending" }}</span>
+            {% endif %}
+          </td>
+          <td class="number">{{ pct(position.return_pct) }}</td>
+          <td class="number">{{ pct(position.benchmark_return_pct, true) }}</td>
+          <td class="number">{{ pct(position.excess_return_pct) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{%- endmacro %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Performance Tracker — Insider Buying</title>
+<title>Strategy Performance — Insider Buying</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; color: #212121; background: #FAFAFA; line-height: 1.5; }
   a { color: #1565C0; text-decoration: none; }
   a:hover { text-decoration: underline; }
 
-  .page-wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
-
-  .back-link { font-size: 13px; color: #666; margin-bottom: 20px; display: inline-block; }
+  .page-wrap { max-width: 1240px; margin: 0 auto; padding: 24px 20px 64px; }
+  .back-link { display: inline-block; margin-bottom: 20px; color: #666; font-size: 13px; }
   .back-link::before { content: "← "; }
+  .page-header { border-bottom: 2px solid #1565C0; padding-bottom: 16px; margin-bottom: 20px; }
+  .page-header h1 { color: #0D47A1; font-size: 22px; letter-spacing: .03em; text-transform: uppercase; }
+  .page-header .meta { color: #666; font-size: 13px; margin-top: 4px; }
 
-  .page-header { border-bottom: 2px solid #1565C0; padding-bottom: 16px; margin-bottom: 24px; }
-  .page-header h1 { font-size: 22px; font-weight: 700; color: #0D47A1; letter-spacing: 0.03em; text-transform: uppercase; }
-  .page-header .meta { font-size: 13px; color: #666; margin-top: 4px; }
+  .explainer { background: #fff; border: 1px solid #E0E0E0; border-radius: 6px; color: #555; font-size: 13px; line-height: 1.65; margin-bottom: 18px; padding: 15px 18px; }
+  .methodology { background: #F5F7FA; border: 1px solid #E0E0E0; border-radius: 6px; margin-bottom: 30px; }
+  .methodology summary { color: #455A64; cursor: pointer; font-size: 12px; font-weight: 700; letter-spacing: .04em; padding: 10px 14px; text-transform: uppercase; }
+  .methodology ul { color: #555; display: grid; gap: 7px; grid-template-columns: repeat(2, minmax(0, 1fr)); list-style: none; padding: 2px 14px 14px; }
+  .methodology strong { color: #37474F; }
 
-  .explainer { background: #fff; border: 1px solid #E0E0E0; border-radius: 6px; padding: 14px 18px; margin-bottom: 28px; font-size: 13px; color: #555; line-height: 1.6; }
+  .strategy { margin-bottom: 36px; }
+  .strategy-header { align-items: baseline; border-bottom: 2px solid #E0E0E0; display: flex; gap: 12px; margin-bottom: 14px; padding-bottom: 8px; }
+  .strategy-header h2 { color: #0D47A1; font-size: 17px; }
+  .strategy-header span { color: #888; font-size: 12px; }
+  .window-grid { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  .date-group { margin-bottom: 36px; }
-  .date-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #E0E0E0; }
-  .date-header .date-label { font-size: 16px; font-weight: 700; color: #0D47A1; }
-  .date-header a { font-size: 13px; color: #888; }
-  .date-header .summary-chips { display: flex; gap: 10px; margin-left: auto; flex-wrap: wrap; }
-  .chip { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 3px; background: #F5F5F5; color: #555; }
-  .chip.positive { background: #E8F5E9; color: #2E7D32; }
-  .chip.negative { background: #FFEBEE; color: #C62828; }
-  .chip.neutral { background: #F5F5F5; color: #555; }
+  .window-card { background: #fff; border: 1px solid #DADCE0; border-radius: 7px; overflow: hidden; }
+  .window-card[open] { grid-column: 1 / -1; }
+  .window-summary { cursor: pointer; list-style: none; padding: 15px 17px; }
+  .window-summary::-webkit-details-marker { display: none; }
+  .window-title { align-items: center; display: flex; justify-content: space-between; margin-bottom: 13px; }
+  .window-title h3 { color: #37474F; font-size: 14px; }
+  .window-title .expand { color: #1565C0; font-size: 12px; font-weight: 600; }
+  .window-card[open] .expand-view { display: none; }
+  .window-card:not([open]) .expand-hide { display: none; }
+  .metric-grid { display: grid; gap: 9px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .metric { background: #F8F9FA; border-radius: 5px; min-height: 82px; padding: 10px 11px; }
+  .metric-label { color: #777; display: block; font-size: 10px; font-weight: 700; letter-spacing: .05em; margin-bottom: 3px; text-transform: uppercase; }
+  .metric-value { display: block; font-size: 19px; font-weight: 700; }
+  .metric-context { color: #888; display: block; font-size: 11px; margin-top: 2px; }
+  .positive { color: #2E7D32; font-weight: 700; }
+  .negative { color: #C62828; font-weight: 700; }
+  .muted { color: #777; font-weight: 500; }
+  .metric-na { color: #999; font-size: 11px; font-weight: 500; }
+
+  .window-detail { border-top: 1px solid #E8EAED; padding: 4px 17px 17px; }
+  .coverage { color: #777; font-size: 12px; padding: 10px 0; }
+  .position-group { border: 1px solid #ECEFF1; border-radius: 5px; margin-top: 10px; overflow: hidden; }
+  .position-group summary { align-items: center; background: #F8F9FA; cursor: pointer; display: flex; font-size: 12px; font-weight: 700; justify-content: space-between; letter-spacing: .03em; padding: 9px 11px; text-transform: uppercase; }
+  .count { background: #ECEFF1; border-radius: 10px; color: #546E7A; font-size: 10px; padding: 2px 7px; }
+  .empty { color: #999; font-size: 12px; padding: 14px; }
 
   .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { background: #F5F5F5; color: #555; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 10px; text-align: left; white-space: nowrap; border-bottom: 2px solid #E0E0E0; }
-  td { padding: 7px 10px; border-bottom: 1px solid #F0F0F0; vertical-align: middle; }
+  table { border-collapse: collapse; font-size: 12px; width: 100%; }
+  th { background: #fff; border-bottom: 2px solid #E0E0E0; color: #666; font-size: 10px; letter-spacing: .04em; padding: 8px 9px; text-align: left; text-transform: uppercase; white-space: nowrap; }
+  td { border-bottom: 1px solid #F0F0F0; padding: 8px 9px; vertical-align: middle; }
+  tr:last-child td { border-bottom: 0; }
   tr:hover td { background: #FAFAFA; }
-  .td-ticker { font-weight: 700; color: #0D47A1; font-size: 14px; }
-  .td-insider { color: #424242; }
-  .td-title { color: #888; font-size: 12px; }
-  .td-score { font-weight: 700; color: #0D47A1; }
-  .td-price { font-family: monospace; font-size: 13px; color: #424242; }
-  .td-value { color: #1B5E20; font-weight: 600; }
+  .number { text-align: right; white-space: nowrap; }
+  .ticker { color: #0D47A1; display: block; font-size: 13px; font-weight: 700; }
+  .company { color: #777; display: block; font-size: 10px; max-width: 180px; }
+  .subtle { color: #999; display: block; font-size: 10px; white-space: nowrap; }
+  .price-cell { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
 
-  .change-positive { color: #2E7D32; font-weight: 700; }
-  .change-negative { color: #C62828; font-weight: 700; }
-  .change-na { color: #BDBDBD; }
+  .site-footer { border-top: 1px solid #E0E0E0; color: #999; font-size: 12px; margin-top: 44px; padding-top: 16px; }
 
-  .cluster-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #F44336; margin-right: 4px; vertical-align: middle; title: "Cluster buy"; }
-
-  .no-data { color: #999; font-size: 13px; padding: 20px 0; }
-
-  .site-footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #E0E0E0; font-size: 12px; color: #999; }
-
-  @media (max-width: 640px) {
-    .date-header { flex-wrap: wrap; }
-    .date-header .summary-chips { margin-left: 0; }
+  @media (max-width: 760px) {
+    .window-grid, .methodology ul { grid-template-columns: 1fr; }
+    .window-card[open] { grid-column: auto; }
+    .metric-grid { grid-template-columns: 1fr; }
+    .metric { min-height: 0; }
+    .strategy-header { align-items: flex-start; flex-direction: column; gap: 2px; }
   }
 </style>
 </head>
 <body>
 <div class="page-wrap">
-
   <a href="index.html" class="back-link">Back to Archive</a>
 
-  <div class="page-header">
-    <h1>Performance Tracker</h1>
-    <div class="meta">How flagged insider buys performed · Prices as of {{ current_date_fmt }}</div>
-  </div>
+  <header class="page-header">
+    <h1>Strategy Performance</h1>
+    <div class="meta">Six repeatable insider-buying strategies · Adjusted prices through {{ model.price_as_of_fmt }}</div>
+  </header>
 
   <div class="explainer">
-    For each insider buy flagged in a report, this page shows the stock's closing price on the
-    report date ("price when flagged") and its current price — so you can see how each signal
-    played out over time. Grouped by report date, sorted by score within each group.
-    <br><br>
-    <strong>Price when flagged</strong> = closing price on the report run date (not the insider's buy price).
-    <strong>Buy price</strong> = what the insider actually paid per share (from the SEC filing).
+    Each report can open an equal-weight basket of up to five securities, ranked by combined insider-buy
+    size or combined score. A selected security cannot be bought again while its position is open, but it
+    becomes eligible for a new position once that strategy's holding period ends. Expand any period below
+    to audit every open, closed, or price-pending position.
   </div>
 
-  {% if not grouped %}
-  <p class="no-data">No performance data yet. Run <code>update_performance.py</code> to populate.</p>
-  {% endif %}
+  <details class="methodology">
+    <summary>Methodology and safeguards</summary>
+    <ul>
+      <li><strong>Entry:</strong> {{ model.assumptions.entry }}</li>
+      <li><strong>Exit:</strong> {{ model.assumptions.exit }}</li>
+      <li><strong>Allocation:</strong> {{ model.assumptions.allocation }}</li>
+      <li><strong>Evaluation window:</strong> {{ model.assumptions.window }}</li>
+      <li><strong>Sharpe:</strong> {{ model.assumptions.sharpe }}</li>
+      <li><strong>Half-Kelly:</strong> {{ model.assumptions.kelly }}</li>
+    </ul>
+  </details>
 
-  {% for group in grouped %}
-  <div class="date-group">
-    <div class="date-header">
-      <span class="date-label">{{ group.report_date }}</span>
-      <a href="reports/{{ group.report_date }}.html">View report →</a>
-      <div class="summary-chips">
-        <span class="chip">{{ group.count }} buys</span>
-        {% if group.avg_change_pct is not none %}
-          {% if group.avg_change_pct > 0 %}
-          <span class="chip positive">Avg +{{ group.avg_change_pct }}%</span>
-          {% elif group.avg_change_pct < 0 %}
-          <span class="chip negative">Avg {{ group.avg_change_pct }}%</span>
-          {% else %}
-          <span class="chip neutral">Avg 0%</span>
-          {% endif %}
-          <span class="chip">{{ group.winners }}/{{ group.with_data }} up</span>
-        {% endif %}
-        {% if group.avg_alpha is not none %}
-          {% if group.avg_alpha > 0 %}
-          <span class="chip positive">vs SPY +{{ group.avg_alpha }}%</span>
-          {% elif group.avg_alpha < 0 %}
-          <span class="chip negative">vs SPY {{ group.avg_alpha }}%</span>
-          {% else %}
-          <span class="chip neutral">vs SPY 0%</span>
-          {% endif %}
-        {% endif %}
-      </div>
+  {% for strategy in model.strategies %}
+  <section class="strategy">
+    <div class="strategy-header">
+      <h2>{{ strategy.name }}</h2>
+      <span>Top five by combined {{ strategy.rank_by }} · {{ strategy.holding_months }} calendar month{% if strategy.holding_months != 1 %}s{% endif %}</span>
     </div>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Ticker</th>
-            <th>Company</th>
-            <th>Insider</th>
-            <th>Title</th>
-            <th style="text-align:right">Score</th>
-            <th style="text-align:right">Buy Price</th>
-            <th style="text-align:right">Buy Value</th>
-            <th style="text-align:right">At Flag</th>
-            <th style="text-align:right">Current</th>
-            <th style="text-align:right">Change</th>
-            <th style="text-align:right">SPY Same Period</th>
-            <th style="text-align:right">Alpha</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for tx in group.transactions %}
-          <tr>
-            <td class="td-ticker">
-              {% if tx.cluster_id %}<span class="cluster-dot" title="Cluster buy"></span>{% endif %}
-              {{ tx.ticker }}
-            </td>
-            <td>{{ tx.company_name }}</td>
-            <td class="td-insider">{{ tx.insider_name }}</td>
-            <td class="td-title">{{ tx.insider_title or "—" }}</td>
-            <td style="text-align:right" class="td-score">{{ tx.score }}</td>
-            <td style="text-align:right" class="td-price">
-              {% if tx.buy_price %}${{ "%.2f"|format(tx.buy_price) }}{% else %}—{% endif %}
-            </td>
-            <td style="text-align:right" class="td-value">{{ fmt_value(tx.total_value) }}</td>
-            <td style="text-align:right" class="td-price">
-              {% if tx.price_at_report %}${{ "%.2f"|format(tx.price_at_report) }}{% else %}<span class="change-na">—</span>{% endif %}
-            </td>
-            <td style="text-align:right" class="td-price">
-              {% if tx.current_price %}${{ "%.2f"|format(tx.current_price) }}{% else %}<span class="change-na">—</span>{% endif %}
-            </td>
-            <td style="text-align:right">
-              {% if tx.change_pct is not none %}
-                {% if tx.change_pct > 0 %}
-                <span class="change-positive">+{{ "%.1f"|format(tx.change_pct) }}%</span>
-                {% elif tx.change_pct < 0 %}
-                <span class="change-negative">{{ "%.1f"|format(tx.change_pct) }}%</span>
-                {% else %}<span>0.0%</span>
+    <div class="window-grid">
+      {% for window in strategy.windows %}
+      <details class="window-card">
+        <summary class="window-summary">
+          <div class="window-title">
+            <h3>{{ window.name }}</h3>
+            <span class="expand"><span class="expand-view">View positions</span><span class="expand-hide">Hide details</span></span>
+          </div>
+          <div class="metric-grid">
+            <div class="metric">
+              <span class="metric-label">Cohort Return</span>
+              <span class="metric-value">{{ pct(window.return_pct) }}</span>
+              <span class="metric-context">
+                {% if window.benchmark_return_pct is not none %}
+                  SPY {{ "%+.2f"|format(window.benchmark_return_pct) }}% · excess {{ "%+.2f"|format(window.excess_return_pct) }}%
+                {% else %}
+                  Waiting for matched price history
                 {% endif %}
-              {% else %}<span class="change-na">—</span>
-              {% endif %}
-            </td>
-            <td style="text-align:right" class="td-price">
-              {% if tx.spy_change_pct is not none %}
-                {% if tx.spy_change_pct > 0 %}
-                <span style="color:#888">+{{ "%.1f"|format(tx.spy_change_pct) }}%</span>
-                {% elif tx.spy_change_pct < 0 %}
-                <span style="color:#888">{{ "%.1f"|format(tx.spy_change_pct) }}%</span>
-                {% else %}<span style="color:#888">0.0%</span>
-                {% endif %}
-              {% else %}<span class="change-na">—</span>
-              {% endif %}
-            </td>
-            <td style="text-align:right">
-              {% if tx.alpha is not none %}
-                {% if tx.alpha > 0 %}
-                <span class="change-positive">+{{ "%.1f"|format(tx.alpha) }}%</span>
-                {% elif tx.alpha < 0 %}
-                <span class="change-negative">{{ "%.1f"|format(tx.alpha) }}%</span>
-                {% else %}<span>0.0%</span>
-                {% endif %}
-              {% else %}<span class="change-na">—</span>
-              {% endif %}
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+              </span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Sharpe Ratio</span>
+              <span class="metric-value">
+                {% if window.sharpe is not none %}{{ "%.2f"|format(window.sharpe) }}{% else %}<span class="metric-na">Insufficient history</span>{% endif %}
+              </span>
+              <span class="metric-context">{{ window.sharpe_days }} daily observations · 0% risk-free</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Half-Kelly Position Size</span>
+              <span class="metric-value">
+                {% if window.half_kelly.value_pct is not none %}{{ "%.2f"|format(window.half_kelly.value_pct) }}%{% else %}<span class="metric-na">Insufficient history</span>{% endif %}
+              </span>
+              <span class="metric-context">
+                {{ window.half_kelly.winners }}W / {{ window.half_kelly.losers }}L
+                {% if window.half_kelly.reason %} · {{ window.half_kelly.reason }}{% endif %}
+              </span>
+            </div>
+          </div>
+        </summary>
+
+        <div class="window-detail">
+          <div class="coverage">
+            {{ window.position_count }} selected positions since {{ window.cutoff_date }} ·
+            {{ window.priced_count }} priced · {{ window.open_count }} open · {{ window.closed_count }} closed
+            {% if window.pending_count %} · {{ window.pending_count }} awaiting complete price data{% endif %}
+          </div>
+
+          <details class="position-group" {% if window.open_count %}open{% endif %}>
+            <summary><span>Open Positions</span><span class="count">{{ window.open_count }}</span></summary>
+            {% if window.open_positions %}{{ position_table(window.open_positions, "open") }}{% else %}<p class="empty">No open positions in this period.</p>{% endif %}
+          </details>
+
+          <details class="position-group">
+            <summary><span>Closed Positions</span><span class="count">{{ window.closed_count }}</span></summary>
+            {% if window.closed_positions %}{{ position_table(window.closed_positions, "closed") }}{% else %}<p class="empty">No positions have completed this holding period yet.</p>{% endif %}
+          </details>
+
+          {% if window.pending_positions %}
+          <details class="position-group">
+            <summary><span>Awaiting Price Data</span><span class="count">{{ window.pending_count }}</span></summary>
+            {{ position_table(window.pending_positions, "pending") }}
+          </details>
+          {% endif %}
+        </div>
+      </details>
+      {% endfor %}
     </div>
-  </div>
+  </section>
   {% endfor %}
 
-  <div class="site-footer">
-    Data: <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=4" target="_blank">SEC EDGAR</a>
-    &nbsp;·&nbsp; Prices: <a href="https://polygon.io" target="_blank">Polygon.io</a>
-    &nbsp;·&nbsp; Updated with each pipeline run
-  </div>
-
+  <footer class="site-footer">
+    Signals: <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;type=4" target="_blank">SEC EDGAR</a>
+    &nbsp;·&nbsp; Adjusted prices: <a href="https://polygon.io" target="_blank">Polygon.io</a>
+    &nbsp;·&nbsp; Generated {{ model.generated_date_fmt }}
+  </footer>
 </div>
 </body>
 </html>
