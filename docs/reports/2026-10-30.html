@@ -1,0 +1,3794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insider Buying Report — Oct 23 – Oct 30, 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; color: #212121; background: #FAFAFA; line-height: 1.5; }
+  a { color: #1565C0; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .page-wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  .back-link { font-size: 13px; color: #666; margin-bottom: 20px; display: inline-block; }
+  .back-link::before { content: "← "; }
+
+  .page-header { border-bottom: 2px solid #1565C0; padding-bottom: 16px; margin-bottom: 24px; }
+  .page-header h1 { font-size: 22px; font-weight: 700; color: #0D47A1; letter-spacing: 0.03em; text-transform: uppercase; }
+  .page-header .meta { font-size: 13px; color: #666; margin-top: 4px; }
+
+  .summary-bar { display: flex; gap: 24px; flex-wrap: wrap; background: #fff; border: 1px solid #E0E0E0; border-radius: 6px; padding: 16px 20px; margin-bottom: 28px; }
+  .summary-stat { display: flex; flex-direction: column; }
+  .summary-stat .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; font-weight: 600; }
+  .summary-stat .value { font-size: 20px; font-weight: 700; color: #0D47A1; }
+
+  .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #555; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid #E0E0E0; }
+
+  .card { background: #fff; border: 1px solid #E0E0E0; border-radius: 6px; padding: 20px; margin-bottom: 16px; }
+  .card.cluster { border-left: 3px solid #F44336; }
+  .card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  .score-badge { background: #0D47A1; color: #fff; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+  .cluster-badge { background: #F44336; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+  .card-title { flex: 1; }
+  .card-title .ticker { font-size: 18px; font-weight: 700; color: #0D47A1; }
+  .card-title .company-name { font-size: 14px; color: #555; }
+
+  .tx-rows { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .tx-row { display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; background: #F8F8F8; border-radius: 4px; padding: 8px 12px; }
+  .tx-row .insider { font-weight: 600; color: #212121; }
+  .tx-row .title-tag { color: #666; font-size: 12px; }
+  .tx-row .amount { color: #1B5E20; font-weight: 600; }
+  .tx-row .pct { color: #E65100; font-size: 12px; }
+  .tx-row .filing-link { margin-left: auto; font-size: 12px; color: #888; }
+
+  .price-context { font-size: 12px; color: #555; background: #F5F5F5; border-radius: 4px; padding: 6px 10px; margin-bottom: 12px; display: inline-block; }
+
+  .company-desc { font-size: 13px; color: #424242; line-height: 1.6; margin-bottom: 12px; }
+
+  .news-list { margin-bottom: 14px; }
+  .news-list .news-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #888; margin-bottom: 6px; }
+  .news-list ul { list-style: none; }
+  .news-list li { font-size: 13px; padding: 4px 0; border-bottom: 1px solid #F0F0F0; }
+  .news-list li:last-child { border-bottom: none; }
+  .news-list .news-meta { font-size: 11px; color: #999; margin-left: 8px; }
+
+  .chart-wrap { margin-top: 14px; }
+  .chart-wrap img { width: 100%; max-width: 100%; border-radius: 4px; border: 1px solid #E0E0E0; }
+  .chart-placeholder { background: #F5F5F5; border: 1px dashed #CCC; border-radius: 4px; padding: 20px; text-align: center; color: #999; font-size: 13px; }
+
+  .table-wrap { overflow-x: auto; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #F5F5F5; color: #555; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 10px; text-align: left; cursor: pointer; white-space: nowrap; border-bottom: 2px solid #E0E0E0; }
+  th:hover { background: #EEEEEE; }
+  th.sort-asc::after { content: " ▲"; }
+  th.sort-desc::after { content: " ▼"; }
+  td { padding: 7px 10px; border-bottom: 1px solid #F0F0F0; vertical-align: top; }
+  tr:hover td { background: #FAFAFA; }
+  .td-ticker { font-weight: 700; color: #0D47A1; }
+  .td-value { color: #1B5E20; font-weight: 600; }
+  .td-score { font-weight: 700; color: #0D47A1; }
+  .td-cluster { color: #F44336; font-weight: 600; }
+
+  .section-gap { margin-bottom: 40px; }
+  .no-data { color: #999; font-size: 13px; padding: 20px 0; }
+
+  @media (max-width: 640px) {
+    .summary-bar { gap: 16px; }
+    .summary-stat .value { font-size: 16px; }
+    .card { padding: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <a href="../../index.html" class="back-link">Back to Archive</a>
+
+  <div class="page-header">
+    <h1>Insider Buying Report</h1>
+    <div class="meta">
+      Oct 23 – Oct 30, 2026 &nbsp;·&nbsp; Updated Fri Oct 30, 2026
+    </div>
+  </div>
+
+  <div class="summary-bar">
+    <div class="summary-stat">
+      <span class="label">Purchases</span>
+      <span class="value">169</span>
+    </div>
+    <div class="summary-stat">
+      <span class="label">Total Value</span>
+      <span class="value">$197.5M</span>
+    </div>
+    <div class="summary-stat">
+      <span class="label">Companies</span>
+      <span class="value">70</span>
+    </div>
+    <div class="summary-stat">
+      <span class="label">Cluster Buys</span>
+      <span class="value">12</span>
+    </div>
+  </div>
+
+  
+  
+  <div class="section-gap">
+    <div class="section-title">Cluster Buys — Multiple Insiders, Same Company</div>
+
+    <div class="table-wrap" style="margin-bottom:20px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Company</th>
+            <th style="text-align:right">Insiders</th>
+            <th style="text-align:right">Combined Value</th>
+            <th style="text-align:right">Score</th>
+            <th>Buyers</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-MSM">MSM</a></td>
+            <td>MSC INDUSTRIAL DIRECT CO INC</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">4</span></td>
+            <td style="text-align:right" class="td-value">$29.0M</td>
+            <td style="text-align:right" class="td-score">25</td>
+            <td style="font-size:12px; color:#555;">JACOBSON MITCHELL · JACOBSON MITCHELL · JACOBSON MITCHELL · Slone Reuben E</td>
+          </tr>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-RENT">RENT</a></td>
+            <td>Rent the Runway, Inc.</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">2</span></td>
+            <td style="text-align:right" class="td-value">$4.5M</td>
+            <td style="text-align:right" class="td-score">14</td>
+            <td style="font-size:12px; color:#555;">STORY3 Capital Partners, LLC · Nexus Capital Management LP</td>
+          </tr>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-BPRE">BPRE</a></td>
+            <td>Bluerock Private Real Estate Fund</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">5</span></td>
+            <td style="text-align:right" class="td-value">$4.4M</td>
+            <td style="text-align:right" class="td-score">31</td>
+            <td style="font-size:12px; color:#555;">President</td>
+          </tr>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-ACN">ACN</a></td>
+            <td>Accenture plc</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">3</span></td>
+            <td style="text-align:right" class="td-value">$3.2M</td>
+            <td style="text-align:right" class="td-score">21</td>
+            <td style="font-size:12px; color:#555;">Chair and CEO · Chair and CEO</td>
+          </tr>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-NPB">NPB</a></td>
+            <td>NORTHPOINTE BANCSHARES INC</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">5</span></td>
+            <td style="text-align:right" class="td-value">$1.8M</td>
+            <td style="text-align:right" class="td-score">28</td>
+            <td style="font-size:12px; color:#555;">CHAIRMAN &amp; CEO · CHAIRMAN &amp; CEO · Chief Operating Officer</td>
+          </tr>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-TTMI">TTMI</a></td>
+            <td>TTM TECHNOLOGIES INC</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">3</span></td>
+            <td style="text-align:right" class="td-value">$1.3M</td>
+            <td style="text-align:right" class="td-score">12</td>
+            <td style="font-size:12px; color:#555;">President and CEO</td>
+          </tr>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-THRM">THRM</a></td>
+            <td>Gentherm Inc</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">2</span></td>
+            <td style="text-align:right" class="td-value">$663K</td>
+            <td style="text-align:right" class="td-score">11</td>
+            <td style="font-size:12px; color:#555;">President &amp; CEO</td>
+          </tr>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-NXG">NXG</a></td>
+            <td>NXG NextGen Infrastructure Income Fund</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">2</span></td>
+            <td style="text-align:right" class="td-value">$479K</td>
+            <td style="text-align:right" class="td-score">12</td>
+            <td style="font-size:12px; color:#555;">See Remarks · CFO &amp; Treasurer</td>
+          </tr>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-STC">STC</a></td>
+            <td>STEWART INFORMATION SERVICES CORP</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">6</span></td>
+            <td style="text-align:right" class="td-value">$461K</td>
+            <td style="text-align:right" class="td-score">26</td>
+            <td style="font-size:12px; color:#555;">Chief Executive Officer</td>
+          </tr>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-HBAN">HBAN</a></td>
+            <td>HUNTINGTON BANCSHARES INC /MD/</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">3</span></td>
+            <td style="text-align:right" class="td-value">$454K</td>
+            <td style="text-align:right" class="td-score">15</td>
+            <td style="font-size:12px; color:#555;">TORGOW GARY · ROLLINS JAMES D III · ROLLINS JAMES D III</td>
+          </tr>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-BBT">BBT</a></td>
+            <td>Beacon Financial Corp</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">5</span></td>
+            <td style="text-align:right" class="td-value">$264K</td>
+            <td style="text-align:right" class="td-score">21</td>
+            <td style="font-size:12px; color:#555;">Hollister Thomas J · Callahan Mary Anne · Polito Karyn · Rosengren Eric S · Fitzgerald Margaret Boles</td>
+          </tr>
+          
+          <tr>
+            <td class="td-ticker"><a href="#cluster-CHCO">CHCO</a></td>
+            <td>CITY HOLDING CO</td>
+            <td style="text-align:right"><span class="cluster-badge" style="font-size:11px;">4</span></td>
+            <td style="text-align:right" class="td-value">$68K</td>
+            <td style="text-align:right" class="td-score">16</td>
+            <td style="font-size:12px; color:#555;">FISHER ROBERT D · STRONG-TREISTER DIANE W · Hoyer James A · Reyes Javier A</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+    
+    <div class="card cluster" id="cluster-MSM">
+      <div class="card-header">
+        <span class="cluster-badge">4 INSIDERS</span>
+        <span class="score-badge">Score 25</span>
+        <div class="card-title">
+          <span class="ticker">MSM</span>
+          <span class="company-name"> — MSC INDUSTRIAL DIRECT CO INC</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$29.0M</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">JACOBSON MITCHELL</span>
+          <span class="title-tag">—</span>
+          <span class="amount">134,662 shares @ $116.00  ·  $15.6M</span>
+          <span class="pct">+5.6% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1008015/000095014226002870/0000950142-26-002870-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">JACOBSON MITCHELL</span>
+          <span class="title-tag">—</span>
+          <span class="amount">60,951 shares @ $115.11  ·  $7.0M</span>
+          <span class="pct">+2.6% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1008015/000095014226002870/0000950142-26-002870-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">JACOBSON MITCHELL</span>
+          <span class="title-tag">—</span>
+          <span class="amount">54,387 shares @ $116.72  ·  $6.3M</span>
+          <span class="pct">+2.1% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1008015/000095014226002870/0000950142-26-002870-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Slone Reuben E</span>
+          <span class="title-tag">—</span>
+          <span class="amount">370 shares @ $115.64  ·  $43K</span>
+          
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1518692/000100307826000112/0001003078-26-000112-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card cluster" id="cluster-RENT">
+      <div class="card-header">
+        <span class="cluster-badge">2 INSIDERS</span>
+        <span class="score-badge">Score 14</span>
+        <div class="card-title">
+          <span class="ticker">RENT</span>
+          <span class="company-name"> — Rent the Runway, Inc.</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$4.5M</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">STORY3 Capital Partners, LLC</span>
+          <span class="title-tag">—</span>
+          <span class="amount">632,922 shares @ $3.55  ·  $2.2M</span>
+          <span class="pct">+14.8% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/2093677/000101297526000982/0001012975-26-000982-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Nexus Capital Management LP</span>
+          <span class="title-tag">—</span>
+          <span class="amount">632,922 shares @ $3.55  ·  $2.2M</span>
+          <span class="pct">+14.8% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1372171/000101297526000981/0001012975-26-000981-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card cluster" id="cluster-BPRE">
+      <div class="card-header">
+        <span class="cluster-badge">5 INSIDERS</span>
+        <span class="score-badge">Score 31</span>
+        <div class="card-title">
+          <span class="ticker">BPRE</span>
+          <span class="company-name"> — Bluerock Private Real Estate Fund</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$4.4M</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">KAMFAR RAMIN</span>
+          <span class="title-tag">—</span>
+          <span class="amount">109,292 shares @ $12.52  ·  $1.4M</span>
+          <span class="pct">+3.9% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1111908/000139834426018736/0001398344-26-018736-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">KAMFAR RAMIN</span>
+          <span class="title-tag">—</span>
+          <span class="amount">109,019 shares @ $12.48  ·  $1.4M</span>
+          <span class="pct">+3.8% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1111908/000139834426019008/0001398344-26-019008-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">KAMFAR RAMIN</span>
+          <span class="title-tag">—</span>
+          <span class="amount">69,658 shares @ $12.48  ·  $870K</span>
+          <span class="pct">+2.3% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1111908/000139834426019008/0001398344-26-019008-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">KAMFAR RAMIN</span>
+          <span class="title-tag">—</span>
+          <span class="amount">61,028 shares @ $12.42  ·  $758K</span>
+          <span class="pct">+2.2% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1111908/000139834426018736/0001398344-26-018736-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Ruddy Jordan B.</span>
+          <span class="title-tag">President</span>
+          <span class="amount">2,040 shares @ $12.25  ·  $25K</span>
+          <span class="pct">+11.9% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1575426/000139834426018733/0001398344-26-018733-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card cluster" id="cluster-ACN">
+      <div class="card-header">
+        <span class="cluster-badge">3 INSIDERS</span>
+        <span class="score-badge">Score 21</span>
+        <div class="card-title">
+          <span class="ticker">ACN</span>
+          <span class="company-name"> — Accenture plc</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$3.2M</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">Sweet Julie Spellman</span>
+          <span class="title-tag">Chair and CEO</span>
+          <span class="amount">10,100 shares @ $246.17  ·  $2.5M</span>
+          <span class="pct">+26.0% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1487630/000148763026000022/0001487630-26-000022-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Sweet Julie Spellman</span>
+          <span class="title-tag">Chair and CEO</span>
+          <span class="amount">2,100 shares @ $245.11  ·  $515K</span>
+          <span class="pct">+5.7% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1487630/000148763026000022/0001487630-26-000022-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Price Paula A</span>
+          <span class="title-tag">—</span>
+          <span class="amount">800 shares @ $249.81  ·  $200K</span>
+          <span class="pct">+9.3% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1369240/000136924026000014/0001369240-26-000014-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card cluster" id="cluster-NPB">
+      <div class="card-header">
+        <span class="cluster-badge">5 INSIDERS</span>
+        <span class="score-badge">Score 28</span>
+        <div class="card-title">
+          <span class="ticker">NPB</span>
+          <span class="company-name"> — NORTHPOINTE BANCSHARES INC</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$1.8M</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">Williams Charles Alan</span>
+          <span class="title-tag">CHAIRMAN &amp; CEO</span>
+          <span class="amount">50,000 shares @ $15.42  ·  $771K</span>
+          <span class="pct">+2.0% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/2056588/000133670626000080/0001336706-26-000080-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Williams Charles Alan</span>
+          <span class="title-tag">CHAIRMAN &amp; CEO</span>
+          <span class="amount">50,000 shares @ $15.32  ·  $766K</span>
+          <span class="pct">+2.0% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/2056588/000133670626000080/0001336706-26-000080-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Boer Carrie L</span>
+          <span class="title-tag">—</span>
+          <span class="amount">12,000 shares @ $15.40  ·  $185K</span>
+          
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/2056954/000205695426000006/0002056954-26-000006-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Long Joseph B</span>
+          <span class="title-tag">Chief Operating Officer</span>
+          <span class="amount">3,240 shares @ $15.37  ·  $50K</span>
+          
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1548602/000133670626000081/0001336706-26-000081-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Chaudhary Rajeev Kumar</span>
+          <span class="title-tag">—</span>
+          <span class="amount">3,000 shares @ $15.80  ·  $47K</span>
+          
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/2081867/000133670626000086/0001336706-26-000086-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card cluster" id="cluster-TTMI">
+      <div class="card-header">
+        <span class="cluster-badge">3 INSIDERS</span>
+        <span class="score-badge">Score 12</span>
+        <div class="card-title">
+          <span class="ticker">TTMI</span>
+          <span class="company-name"> — TTM TECHNOLOGIES INC</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$1.3M</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">Ali Wajid</span>
+          <span class="title-tag">—</span>
+          <span class="amount">5,000 shares @ $90.64  ·  $453K</span>
+          <span class="pct">+16.2% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1561100/000119312526436557/0001193125-26-436557-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Ali Wajid</span>
+          <span class="title-tag">—</span>
+          <span class="amount">5,000 shares @ $89.86  ·  $449K</span>
+          <span class="pct">+19.4% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1561100/000119312526436557/0001193125-26-436557-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Roks Edwin</span>
+          <span class="title-tag">President and CEO</span>
+          <span class="amount">5,000 shares @ $88.07  ·  $440K</span>
+          <span class="pct">+8.4% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1705520/000119312526436562/0001193125-26-436562-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card cluster" id="cluster-THRM">
+      <div class="card-header">
+        <span class="cluster-badge">2 INSIDERS</span>
+        <span class="score-badge">Score 11</span>
+        <div class="card-title">
+          <span class="ticker">THRM</span>
+          <span class="company-name"> — Gentherm Inc</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$663K</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">MASCARENAS PAUL ANTHONY</span>
+          <span class="title-tag">—</span>
+          <span class="amount">20,000 shares @ $26.63  ·  $533K</span>
+          <span class="pct">+747.1% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1625756/000119312526432218/0001193125-26-432218-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Presley William T.</span>
+          <span class="title-tag">President &amp; CEO</span>
+          <span class="amount">5,000 shares @ $26.00  ·  $130K</span>
+          <span class="pct">+2.8% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1824971/000119312526432207/0001193125-26-432207-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card cluster" id="cluster-NXG">
+      <div class="card-header">
+        <span class="cluster-badge">2 INSIDERS</span>
+        <span class="score-badge">Score 12</span>
+        <div class="card-title">
+          <span class="ticker">NXG</span>
+          <span class="company-name"> — NXG NextGen Infrastructure Income Fund</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$479K</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">Swank Jerry V</span>
+          <span class="title-tag">See Remarks</span>
+          <span class="amount">10,000 shares @ $43.95  ·  $439K</span>
+          <span class="pct">+22.1% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1354719/000135471926000001/0001354719-26-000001-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Nelson Blake</span>
+          <span class="title-tag">CFO &amp; Treasurer</span>
+          <span class="amount">900 shares @ $43.98  ·  $40K</span>
+          <span class="pct">+85.9% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1899813/000189981326000003/0001899813-26-000003-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card cluster" id="cluster-STC">
+      <div class="card-header">
+        <span class="cluster-badge">6 INSIDERS</span>
+        <span class="score-badge">Score 26</span>
+        <div class="card-title">
+          <span class="ticker">STC</span>
+          <span class="company-name"> — STEWART INFORMATION SERVICES CORP</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$461K</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">EPPINGER FREDERICK H</span>
+          <span class="title-tag">Chief Executive Officer</span>
+          <span class="amount">3,000 shares @ $44.45  ·  $133K</span>
+          <span class="pct">+1.8% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1261155/000162828026067616/0001628280-26-067616-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">BRADLEY C ALLEN JR</span>
+          <span class="title-tag">—</span>
+          <span class="amount">2,000 shares @ $47.30  ·  $95K</span>
+          <span class="pct">+8.0% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1341775/000162828026067360/0001628280-26-067360-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Corey William S. Jr.</span>
+          <span class="title-tag">—</span>
+          <span class="amount">2,000 shares @ $46.82  ·  $94K</span>
+          <span class="pct">+17.5% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1815639/000162828026067362/0001628280-26-067362-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Apel Thomas G</span>
+          <span class="title-tag">—</span>
+          <span class="amount">1,000 shares @ $48.00  ·  $48K</span>
+          <span class="pct">+2.3% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1356389/000162828026067363/0001628280-26-067363-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Apel Thomas G</span>
+          <span class="title-tag">—</span>
+          <span class="amount">1,000 shares @ $47.47  ·  $47K</span>
+          <span class="pct">+2.2% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1356389/000162828026067363/0001628280-26-067363-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Matz Deborah Jane</span>
+          <span class="title-tag">—</span>
+          <span class="amount">1,000 shares @ $43.91  ·  $44K</span>
+          
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1814738/000162828026067619/0001628280-26-067619-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card cluster" id="cluster-HBAN">
+      <div class="card-header">
+        <span class="cluster-badge">3 INSIDERS</span>
+        <span class="score-badge">Score 15</span>
+        <div class="card-title">
+          <span class="ticker">HBAN</span>
+          <span class="company-name"> — HUNTINGTON BANCSHARES INC /MD/</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$454K</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">TORGOW GARY</span>
+          <span class="title-tag">—</span>
+          <span class="amount">12,700 shares @ $15.73  ·  $200K</span>
+          <span class="pct">+1.4% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1251487/000122520826008552/0001225208-26-008552-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">ROLLINS JAMES D III</span>
+          <span class="title-tag">—</span>
+          <span class="amount">10,000 shares @ $19.43  ·  $194K</span>
+          
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1213483/000122520826008542/0001225208-26-008542-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">ROLLINS JAMES D III</span>
+          <span class="title-tag">—</span>
+          <span class="amount">4,000 shares @ $14.86  ·  $59K</span>
+          <span class="pct">+34.8% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1213483/000122520826008542/0001225208-26-008542-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card cluster" id="cluster-BBT">
+      <div class="card-header">
+        <span class="cluster-badge">5 INSIDERS</span>
+        <span class="score-badge">Score 21</span>
+        <div class="card-title">
+          <span class="ticker">BBT</span>
+          <span class="company-name"> — Beacon Financial Corp</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$264K</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">Hollister Thomas J</span>
+          <span class="title-tag">—</span>
+          <span class="amount">3,450 shares @ $30.43  ·  $105K</span>
+          <span class="pct">+13.6% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1368208/000162828026067255/0001628280-26-067255-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Callahan Mary Anne</span>
+          <span class="title-tag">—</span>
+          <span class="amount">3,200 shares @ $30.21  ·  $97K</span>
+          <span class="pct">+18.4% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1993894/000162828026068056/0001628280-26-068056-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Polito Karyn</span>
+          <span class="title-tag">—</span>
+          <span class="amount">1,000 shares @ $30.68  ·  $31K</span>
+          
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1965457/000162828026067923/0001628280-26-067923-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Rosengren Eric S</span>
+          <span class="title-tag">—</span>
+          <span class="amount">700 shares @ $30.24  ·  $21K</span>
+          <span class="pct">+9.4% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1973576/000162828026067904/0001628280-26-067904-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Fitzgerald Margaret Boles</span>
+          <span class="title-tag">—</span>
+          <span class="amount">329 shares @ $30.77  ·  $10K</span>
+          <span class="pct">+1.8% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1589930/000162828026067740/0001628280-26-067740-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card cluster" id="cluster-CHCO">
+      <div class="card-header">
+        <span class="cluster-badge">4 INSIDERS</span>
+        <span class="score-badge">Score 16</span>
+        <div class="card-title">
+          <span class="ticker">CHCO</span>
+          <span class="company-name"> — CITY HOLDING CO</span>
+        </div>
+        <div style="margin-left:auto; font-size:12px; color:#666;">Combined: <strong>$68K</strong></div>
+      </div>
+
+      <div class="tx-rows">
+        
+        <div class="tx-row">
+          <span class="insider">FISHER ROBERT D</span>
+          <span class="title-tag">—</span>
+          <span class="amount">165 shares @ $142.13  ·  $23K</span>
+          <span class="pct">+0.3% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1234850/000072685426000185/0000726854-26-000185-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">STRONG-TREISTER DIANE W</span>
+          <span class="title-tag">—</span>
+          <span class="amount">120 shares @ $142.13  ·  $17K</span>
+          <span class="pct">+2.9% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1730666/000072685426000188/0000726854-26-000188-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Hoyer James A</span>
+          <span class="title-tag">—</span>
+          <span class="amount">100 shares @ $142.13  ·  $14K</span>
+          <span class="pct">+14.2% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/2029548/000072685426000186/0000726854-26-000186-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+        <div class="tx-row">
+          <span class="insider">Reyes Javier A</span>
+          <span class="title-tag">—</span>
+          <span class="amount">95 shares @ $142.13  ·  $14K</span>
+          <span class="pct">+4.0% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1880770/000072685426000187/0000726854-26-000187-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+        
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+  </div>
+  
+
+  
+  
+  <div class="section-gap">
+    <div class="section-title">Top Individual Buys — by Score</div>
+
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 6</span>
+        <div class="card-title">
+          <span class="ticker">PLUR</span>
+          <span class="company-name"> — Pluri Inc.</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">Manieu Alexandre Weinstein</span>
+          <span class="title-tag">—</span>
+          <span class="amount">833,334 shares @ $1.50  ·  $1.3M</span>
+          <span class="pct">+66.7% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1833124/000121390026112641/0001213900-26-112641-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 5</span>
+        <div class="card-title">
+          <span class="ticker">TFC</span>
+          <span class="company-name"> — TRUIST FINANCIAL CORP</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">Lyons Michael P.</span>
+          <span class="title-tag">President &amp; CEO</span>
+          <span class="amount">25,000 shares @ $48.36  ·  $1.2M</span>
+          <span class="pct">+119.0% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1534574/000153457426000018/0001534574-26-000018-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 5</span>
+        <div class="card-title">
+          <span class="ticker">XYL</span>
+          <span class="company-name"> — Xylem Inc.</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">KOCH D CHRISTIAN</span>
+          <span class="title-tag">—</span>
+          <span class="amount">11,000 shares @ $89.60  ·  $986K</span>
+          <span class="pct">+882.1% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1190801/000152447226000150/0001524472-26-000150-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 4</span>
+        <div class="card-title">
+          <span class="ticker">HYFM</span>
+          <span class="company-name"> — HYDROFARM HOLDINGS GROUP, INC.</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">PARKER MARK S</span>
+          <span class="title-tag">President</span>
+          <span class="amount">22,099 shares @ $0.91  ·  $20K</span>
+          <span class="pct">+119.1% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1915363/000143774926034002/0001437749-26-034002-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 4</span>
+        <div class="card-title">
+          <span class="ticker">SCQCU</span>
+          <span class="company-name"> — SPACCircle Acquisition Corp.</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">Das Soumen</span>
+          <span class="title-tag">—</span>
+          <span class="amount">266,590 shares @ $10.00  ·  $2.7M</span>
+          
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/2091020/000118518526005072/0001185185-26-005072-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 4</span>
+        <div class="card-title">
+          <span class="ticker">LYCA</span>
+          <span class="company-name"> — Lycia Therapeutics, Inc.</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">Venrock Healthcare Capital Partners III, L.P.</span>
+          <span class="title-tag">—</span>
+          <span class="amount">28,379 shares @ $26.11  ·  $741K</span>
+          <span class="pct">+115.5% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1615979/000123191926001503/0001231919-26-001503-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 4</span>
+        <div class="card-title">
+          <span class="ticker">LYCA</span>
+          <span class="company-name"> — Lycia Therapeutics, Inc.</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">Venrock Healthcare Capital Partners III, L.P.</span>
+          <span class="title-tag">—</span>
+          <span class="amount">1,944,444 shares @ $18.00  ·  $35.0M</span>
+          <span class="pct">+40.2% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1615979/000123191926001503/0001231919-26-001503-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 4</span>
+        <div class="card-title">
+          <span class="ticker">LRN</span>
+          <span class="company-name"> — Stride, Inc.</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">Haggart Dylan G.</span>
+          <span class="title-tag">—</span>
+          <span class="amount">59,188 shares @ $79.84  ·  $4.7M</span>
+          <span class="pct">+3.4% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1684185/000121390026113031/0001213900-26-113031-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 4</span>
+        <div class="card-title">
+          <span class="ticker">LRN</span>
+          <span class="company-name"> — Stride, Inc.</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">Haggart Dylan G.</span>
+          <span class="title-tag">—</span>
+          <span class="amount">90,856 shares @ $78.44  ·  $7.1M</span>
+          <span class="pct">+5.0% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1684185/000121390026113031/0001213900-26-113031-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 3</span>
+        <div class="card-title">
+          <span class="ticker">ACTU</span>
+          <span class="company-name"> — ACTUATE THERAPEUTICS, INC.</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">SCHMITT DANIEL M</span>
+          <span class="title-tag">President, CEO and Director</span>
+          <span class="amount">140,844 shares @ $0.35  ·  $50K</span>
+          <span class="pct">+46.7% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1318470/000168316826008147/0001683168-26-008147-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 3</span>
+        <div class="card-title">
+          <span class="ticker">PNFP</span>
+          <span class="company-name"> — Pinnacle Financial Partners, Inc.</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">INGRAM DAVID B</span>
+          <span class="title-tag">—</span>
+          <span class="amount">10,000 shares @ $99.16  ·  $992K</span>
+          <span class="pct">+15.3% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1219004/000121900426000004/0001219004-26-000004-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 3</span>
+        <div class="card-title">
+          <span class="ticker">DINO</span>
+          <span class="company-name"> — HF Sinclair Corp</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">MYERS FRANKLIN</span>
+          <span class="title-tag">CEO</span>
+          <span class="amount">10,000 shares @ $110.80  ·  $1.1M</span>
+          <span class="pct">+5.1% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1207002/000119312526438100/0001193125-26-438100-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 3</span>
+        <div class="card-title">
+          <span class="ticker">CRBG</span>
+          <span class="company-name"> — Corebridge Financial, Inc.</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">NIPPON LIFE INSURANCE CO</span>
+          <span class="title-tag">—</span>
+          <span class="amount">178,129 shares @ $35.14  ·  $6.3M</span>
+          <span class="pct">+0.1% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/905591/000119312526437931/0001193125-26-437931-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 3</span>
+        <div class="card-title">
+          <span class="ticker">HYMC</span>
+          <span class="company-name"> — HYCROFT MINING HOLDING CORP</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">Rhodes Blake</span>
+          <span class="title-tag">—</span>
+          <span class="amount">3,000 shares @ $16.69  ·  $50K</span>
+          <span class="pct">+73.8% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1855045/000149315226048971/0001493152-26-048971-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="score-badge">Score 3</span>
+        <div class="card-title">
+          <span class="ticker">HXL</span>
+          <span class="company-name"> — HEXCEL CORP /DE/</span>
+        </div>
+      </div>
+
+      <div class="tx-rows">
+        <div class="tx-row">
+          <span class="insider">KEATING NEAL J.</span>
+          <span class="title-tag">—</span>
+          <span class="amount">3,000 shares @ $80.67  ·  $242K</span>
+          <span class="pct">+1181.1% position</span>
+          <a class="filing-link" href="https://www.sec.gov/Archives/edgar/data/1319629/000119312526436418/0001193125-26-436418-index.htm" target="_blank">SEC Filing ↗</a>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+      
+      <div class="chart-placeholder">Price chart unavailable</div>
+      
+    </div>
+    
+  </div>
+  
+
+  
+  <div class="section-gap">
+    <div class="section-title">All Transactions (169)</div>
+    <div class="table-wrap">
+      <table id="tx-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">Date</th>
+            <th onclick="sortTable(1)">Ticker</th>
+            <th onclick="sortTable(2)">Company</th>
+            <th onclick="sortTable(3)">Insider</th>
+            <th onclick="sortTable(4)">Title</th>
+            <th onclick="sortTable(5)" style="text-align:right">Shares</th>
+            <th onclick="sortTable(6)" style="text-align:right">Price</th>
+            <th onclick="sortTable(7)" style="text-align:right">Value</th>
+            <th onclick="sortTable(8)" style="text-align:right">% Incr</th>
+            <th onclick="sortTable(9)" style="text-align:right">Score</th>
+            <th>Filing</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">ACN</td>
+            <td>Accenture plc</td>
+            <td>Sweet Julie Spellman</td>
+            <td>Chair and CEO</td>
+            <td style="text-align:right">10,100</td>
+            <td style="text-align:right">$246.17</td>
+            <td style="text-align:right" class="td-value">$2.5M</td>
+            <td style="text-align:right">26.0%</td>
+            <td style="text-align:right" class="td-score">9</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1487630/000148763026000022/0001487630-26-000022-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">ACN</td>
+            <td>Accenture plc</td>
+            <td>Sweet Julie Spellman</td>
+            <td>Chair and CEO</td>
+            <td style="text-align:right">2,100</td>
+            <td style="text-align:right">$245.11</td>
+            <td style="text-align:right" class="td-value">$515K</td>
+            <td style="text-align:right">5.7%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1487630/000148763026000022/0001487630-26-000022-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">BPRE</td>
+            <td>Bluerock Private Real Estate Fund</td>
+            <td>KAMFAR RAMIN</td>
+            <td>—</td>
+            <td style="text-align:right">109,019</td>
+            <td style="text-align:right">$12.48</td>
+            <td style="text-align:right" class="td-value">$1.4M</td>
+            <td style="text-align:right">3.8%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1111908/000139834426019008/0001398344-26-019008-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">NPB</td>
+            <td>NORTHPOINTE BANCSHARES INC</td>
+            <td>Williams Charles Alan</td>
+            <td>CHAIRMAN &amp; CEO</td>
+            <td style="text-align:right">50,000</td>
+            <td style="text-align:right">$15.42</td>
+            <td style="text-align:right" class="td-value">$771K</td>
+            <td style="text-align:right">2.0%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2056588/000133670626000080/0001336706-26-000080-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">NPB</td>
+            <td>NORTHPOINTE BANCSHARES INC</td>
+            <td>Williams Charles Alan</td>
+            <td>CHAIRMAN &amp; CEO</td>
+            <td style="text-align:right">50,000</td>
+            <td style="text-align:right">$15.32</td>
+            <td style="text-align:right" class="td-value">$766K</td>
+            <td style="text-align:right">2.0%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2056588/000133670626000080/0001336706-26-000080-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">MSM</td>
+            <td>MSC INDUSTRIAL DIRECT CO INC</td>
+            <td>JACOBSON MITCHELL</td>
+            <td>—</td>
+            <td style="text-align:right">60,951</td>
+            <td style="text-align:right">$115.11</td>
+            <td style="text-align:right" class="td-value">$7.0M</td>
+            <td style="text-align:right">2.6%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1008015/000095014226002870/0000950142-26-002870-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">MSM</td>
+            <td>MSC INDUSTRIAL DIRECT CO INC</td>
+            <td>JACOBSON MITCHELL</td>
+            <td>—</td>
+            <td style="text-align:right">134,662</td>
+            <td style="text-align:right">$116.00</td>
+            <td style="text-align:right" class="td-value">$15.6M</td>
+            <td style="text-align:right">5.6%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1008015/000095014226002870/0000950142-26-002870-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">MSM</td>
+            <td>MSC INDUSTRIAL DIRECT CO INC</td>
+            <td>JACOBSON MITCHELL</td>
+            <td>—</td>
+            <td style="text-align:right">54,387</td>
+            <td style="text-align:right">$116.72</td>
+            <td style="text-align:right" class="td-value">$6.3M</td>
+            <td style="text-align:right">2.1%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1008015/000095014226002870/0000950142-26-002870-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">BPRE</td>
+            <td>Bluerock Private Real Estate Fund</td>
+            <td>KAMFAR RAMIN</td>
+            <td>—</td>
+            <td style="text-align:right">109,292</td>
+            <td style="text-align:right">$12.52</td>
+            <td style="text-align:right" class="td-value">$1.4M</td>
+            <td style="text-align:right">3.9%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1111908/000139834426018736/0001398344-26-018736-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">THRM</td>
+            <td>Gentherm Inc</td>
+            <td>MASCARENAS PAUL ANTHONY</td>
+            <td>—</td>
+            <td style="text-align:right">20,000</td>
+            <td style="text-align:right">$26.63</td>
+            <td style="text-align:right" class="td-value">$533K</td>
+            <td style="text-align:right">747.1%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1625756/000119312526432218/0001193125-26-432218-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">NXG</td>
+            <td>NXG NextGen Infrastructure Income Fund</td>
+            <td>Nelson Blake</td>
+            <td>CFO &amp; Treasurer</td>
+            <td style="text-align:right">900</td>
+            <td style="text-align:right">$43.98</td>
+            <td style="text-align:right" class="td-value">$40K</td>
+            <td style="text-align:right">85.9%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1899813/000189981326000003/0001899813-26-000003-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-21</td>
+            <td class="td-ticker">RENT</td>
+            <td>Rent the Runway, Inc.</td>
+            <td>STORY3 Capital Partners, LLC</td>
+            <td>—</td>
+            <td style="text-align:right">632,922</td>
+            <td style="text-align:right">$3.55</td>
+            <td style="text-align:right" class="td-value">$2.2M</td>
+            <td style="text-align:right">14.8%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2093677/000101297526000982/0001012975-26-000982-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-21</td>
+            <td class="td-ticker">RENT</td>
+            <td>Rent the Runway, Inc.</td>
+            <td>Nexus Capital Management LP</td>
+            <td>—</td>
+            <td style="text-align:right">632,922</td>
+            <td style="text-align:right">$3.55</td>
+            <td style="text-align:right" class="td-value">$2.2M</td>
+            <td style="text-align:right">14.8%</td>
+            <td style="text-align:right" class="td-score">7</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1372171/000101297526000981/0001012975-26-000981-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">BPRE</td>
+            <td>Bluerock Private Real Estate Fund</td>
+            <td>KAMFAR RAMIN</td>
+            <td>—</td>
+            <td style="text-align:right">69,658</td>
+            <td style="text-align:right">$12.48</td>
+            <td style="text-align:right" class="td-value">$870K</td>
+            <td style="text-align:right">2.3%</td>
+            <td style="text-align:right" class="td-score">6</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1111908/000139834426019008/0001398344-26-019008-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">STC</td>
+            <td>STEWART INFORMATION SERVICES CORP</td>
+            <td>EPPINGER FREDERICK H</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">3,000</td>
+            <td style="text-align:right">$44.45</td>
+            <td style="text-align:right" class="td-value">$133K</td>
+            <td style="text-align:right">1.8%</td>
+            <td style="text-align:right" class="td-score">6</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1261155/000162828026067616/0001628280-26-067616-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">PLUR</td>
+            <td>Pluri Inc.</td>
+            <td>Manieu Alexandre Weinstein</td>
+            <td>—</td>
+            <td style="text-align:right">833,334</td>
+            <td style="text-align:right">$1.50</td>
+            <td style="text-align:right" class="td-value">$1.3M</td>
+            <td style="text-align:right">66.7%</td>
+            <td style="text-align:right" class="td-score">6</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1833124/000121390026112641/0001213900-26-112641-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">BPRE</td>
+            <td>Bluerock Private Real Estate Fund</td>
+            <td>KAMFAR RAMIN</td>
+            <td>—</td>
+            <td style="text-align:right">61,028</td>
+            <td style="text-align:right">$12.42</td>
+            <td style="text-align:right" class="td-value">$758K</td>
+            <td style="text-align:right">2.2%</td>
+            <td style="text-align:right" class="td-score">6</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1111908/000139834426018736/0001398344-26-018736-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">TFC</td>
+            <td>TRUIST FINANCIAL CORP</td>
+            <td>Lyons Michael P.</td>
+            <td>President &amp; CEO</td>
+            <td style="text-align:right">25,000</td>
+            <td style="text-align:right">$48.36</td>
+            <td style="text-align:right" class="td-value">$1.2M</td>
+            <td style="text-align:right">119.0%</td>
+            <td style="text-align:right" class="td-score">5</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1534574/000153457426000018/0001534574-26-000018-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-29</td>
+            <td class="td-ticker">XYL</td>
+            <td>Xylem Inc.</td>
+            <td>KOCH D CHRISTIAN</td>
+            <td>—</td>
+            <td style="text-align:right">11,000</td>
+            <td style="text-align:right">$89.60</td>
+            <td style="text-align:right" class="td-value">$986K</td>
+            <td style="text-align:right">882.1%</td>
+            <td style="text-align:right" class="td-score">5</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1190801/000152447226000150/0001524472-26-000150-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">HBAN</td>
+            <td>HUNTINGTON BANCSHARES INC /MD/</td>
+            <td>TORGOW GARY</td>
+            <td>—</td>
+            <td style="text-align:right">12,700</td>
+            <td style="text-align:right">$15.73</td>
+            <td style="text-align:right" class="td-value">$200K</td>
+            <td style="text-align:right">1.4%</td>
+            <td style="text-align:right" class="td-score">5</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1251487/000122520826008552/0001225208-26-008552-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">ACN</td>
+            <td>Accenture plc</td>
+            <td>Price Paula A</td>
+            <td>—</td>
+            <td style="text-align:right">800</td>
+            <td style="text-align:right">$249.81</td>
+            <td style="text-align:right" class="td-value">$200K</td>
+            <td style="text-align:right">9.3%</td>
+            <td style="text-align:right" class="td-score">5</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1369240/000136924026000014/0001369240-26-000014-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">HBAN</td>
+            <td>HUNTINGTON BANCSHARES INC /MD/</td>
+            <td>ROLLINS JAMES D III</td>
+            <td>—</td>
+            <td style="text-align:right">4,000</td>
+            <td style="text-align:right">$14.86</td>
+            <td style="text-align:right" class="td-value">$59K</td>
+            <td style="text-align:right">34.8%</td>
+            <td style="text-align:right" class="td-score">5</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1213483/000122520826008542/0001225208-26-008542-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">HBAN</td>
+            <td>HUNTINGTON BANCSHARES INC /MD/</td>
+            <td>ROLLINS JAMES D III</td>
+            <td>—</td>
+            <td style="text-align:right">10,000</td>
+            <td style="text-align:right">$19.43</td>
+            <td style="text-align:right" class="td-value">$194K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">5</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1213483/000122520826008542/0001225208-26-008542-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">NPB</td>
+            <td>NORTHPOINTE BANCSHARES INC</td>
+            <td>Boer Carrie L</td>
+            <td>—</td>
+            <td style="text-align:right">12,000</td>
+            <td style="text-align:right">$15.40</td>
+            <td style="text-align:right" class="td-value">$185K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">5</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2056954/000205695426000006/0002056954-26-000006-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">NPB</td>
+            <td>NORTHPOINTE BANCSHARES INC</td>
+            <td>Long Joseph B</td>
+            <td>Chief Operating Officer</td>
+            <td style="text-align:right">3,240</td>
+            <td style="text-align:right">$15.37</td>
+            <td style="text-align:right" class="td-value">$50K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">5</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1548602/000133670626000081/0001336706-26-000081-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">BBT</td>
+            <td>Beacon Financial Corp</td>
+            <td>Hollister Thomas J</td>
+            <td>—</td>
+            <td style="text-align:right">3,450</td>
+            <td style="text-align:right">$30.43</td>
+            <td style="text-align:right" class="td-value">$105K</td>
+            <td style="text-align:right">13.6%</td>
+            <td style="text-align:right" class="td-score">5</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1368208/000162828026067255/0001628280-26-067255-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-21</td>
+            <td class="td-ticker">BPRE</td>
+            <td>Bluerock Private Real Estate Fund</td>
+            <td>Ruddy Jordan B.</td>
+            <td>President</td>
+            <td style="text-align:right">2,040</td>
+            <td style="text-align:right">$12.25</td>
+            <td style="text-align:right" class="td-value">$25K</td>
+            <td style="text-align:right">11.9%</td>
+            <td style="text-align:right" class="td-score">5</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1575426/000139834426018733/0001398344-26-018733-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">NXG</td>
+            <td>NXG NextGen Infrastructure Income Fund</td>
+            <td>Swank Jerry V</td>
+            <td>See Remarks</td>
+            <td style="text-align:right">10,000</td>
+            <td style="text-align:right">$43.95</td>
+            <td style="text-align:right" class="td-value">$439K</td>
+            <td style="text-align:right">22.1%</td>
+            <td style="text-align:right" class="td-score">5</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1354719/000135471926000001/0001354719-26-000001-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">BBT</td>
+            <td>Beacon Financial Corp</td>
+            <td>Callahan Mary Anne</td>
+            <td>—</td>
+            <td style="text-align:right">3,200</td>
+            <td style="text-align:right">$30.21</td>
+            <td style="text-align:right" class="td-value">$97K</td>
+            <td style="text-align:right">18.4%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1993894/000162828026068056/0001628280-26-068056-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">HYFM</td>
+            <td>HYDROFARM HOLDINGS GROUP, INC.</td>
+            <td>PARKER MARK S</td>
+            <td>President</td>
+            <td style="text-align:right">22,099</td>
+            <td style="text-align:right">$0.91</td>
+            <td style="text-align:right" class="td-value">$20K</td>
+            <td style="text-align:right">119.1%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1915363/000143774926034002/0001437749-26-034002-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">NPB</td>
+            <td>NORTHPOINTE BANCSHARES INC</td>
+            <td>Chaudhary Rajeev Kumar</td>
+            <td>—</td>
+            <td style="text-align:right">3,000</td>
+            <td style="text-align:right">$15.80</td>
+            <td style="text-align:right" class="td-value">$47K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2081867/000133670626000086/0001336706-26-000086-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">SCQCU</td>
+            <td>SPACCircle Acquisition Corp.</td>
+            <td>Das Soumen</td>
+            <td>—</td>
+            <td style="text-align:right">266,590</td>
+            <td style="text-align:right">$10.00</td>
+            <td style="text-align:right" class="td-value">$2.7M</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2091020/000118518526005072/0001185185-26-005072-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">BBT</td>
+            <td>Beacon Financial Corp</td>
+            <td>Polito Karyn</td>
+            <td>—</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$30.68</td>
+            <td style="text-align:right" class="td-value">$31K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1965457/000162828026067923/0001628280-26-067923-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">BBT</td>
+            <td>Beacon Financial Corp</td>
+            <td>Rosengren Eric S</td>
+            <td>—</td>
+            <td style="text-align:right">700</td>
+            <td style="text-align:right">$30.24</td>
+            <td style="text-align:right" class="td-value">$21K</td>
+            <td style="text-align:right">9.4%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1973576/000162828026067904/0001628280-26-067904-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">BBT</td>
+            <td>Beacon Financial Corp</td>
+            <td>Fitzgerald Margaret Boles</td>
+            <td>—</td>
+            <td style="text-align:right">329</td>
+            <td style="text-align:right">$30.77</td>
+            <td style="text-align:right" class="td-value">$10K</td>
+            <td style="text-align:right">1.8%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1589930/000162828026067740/0001628280-26-067740-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">TTMI</td>
+            <td>TTM TECHNOLOGIES INC</td>
+            <td>Roks Edwin</td>
+            <td>President and CEO</td>
+            <td style="text-align:right">5,000</td>
+            <td style="text-align:right">$88.07</td>
+            <td style="text-align:right" class="td-value">$440K</td>
+            <td style="text-align:right">8.4%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1705520/000119312526436562/0001193125-26-436562-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">TTMI</td>
+            <td>TTM TECHNOLOGIES INC</td>
+            <td>Ali Wajid</td>
+            <td>—</td>
+            <td style="text-align:right">5,000</td>
+            <td style="text-align:right">$89.86</td>
+            <td style="text-align:right" class="td-value">$449K</td>
+            <td style="text-align:right">19.4%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1561100/000119312526436557/0001193125-26-436557-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">TTMI</td>
+            <td>TTM TECHNOLOGIES INC</td>
+            <td>Ali Wajid</td>
+            <td>—</td>
+            <td style="text-align:right">5,000</td>
+            <td style="text-align:right">$90.64</td>
+            <td style="text-align:right" class="td-value">$453K</td>
+            <td style="text-align:right">16.2%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1561100/000119312526436557/0001193125-26-436557-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">STC</td>
+            <td>STEWART INFORMATION SERVICES CORP</td>
+            <td>Matz Deborah Jane</td>
+            <td>—</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$43.91</td>
+            <td style="text-align:right" class="td-value">$44K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1814738/000162828026067619/0001628280-26-067619-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">LYCA</td>
+            <td>Lycia Therapeutics, Inc.</td>
+            <td>Venrock Healthcare Capital Partners III, L.P.</td>
+            <td>—</td>
+            <td style="text-align:right">28,379</td>
+            <td style="text-align:right">$26.11</td>
+            <td style="text-align:right" class="td-value">$741K</td>
+            <td style="text-align:right">115.5%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1615979/000123191926001503/0001231919-26-001503-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">LYCA</td>
+            <td>Lycia Therapeutics, Inc.</td>
+            <td>Venrock Healthcare Capital Partners III, L.P.</td>
+            <td>—</td>
+            <td style="text-align:right">1,944,444</td>
+            <td style="text-align:right">$18.00</td>
+            <td style="text-align:right" class="td-value">$35.0M</td>
+            <td style="text-align:right">40.2%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1615979/000123191926001503/0001231919-26-001503-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">LRN</td>
+            <td>Stride, Inc.</td>
+            <td>Haggart Dylan G.</td>
+            <td>—</td>
+            <td style="text-align:right">59,188</td>
+            <td style="text-align:right">$79.84</td>
+            <td style="text-align:right" class="td-value">$4.7M</td>
+            <td style="text-align:right">3.4%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1684185/000121390026113031/0001213900-26-113031-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">LRN</td>
+            <td>Stride, Inc.</td>
+            <td>Haggart Dylan G.</td>
+            <td>—</td>
+            <td style="text-align:right">90,856</td>
+            <td style="text-align:right">$78.44</td>
+            <td style="text-align:right" class="td-value">$7.1M</td>
+            <td style="text-align:right">5.0%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1684185/000121390026113031/0001213900-26-113031-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">STC</td>
+            <td>STEWART INFORMATION SERVICES CORP</td>
+            <td>Apel Thomas G</td>
+            <td>—</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$48.00</td>
+            <td style="text-align:right" class="td-value">$48K</td>
+            <td style="text-align:right">2.3%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1356389/000162828026067363/0001628280-26-067363-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">STC</td>
+            <td>STEWART INFORMATION SERVICES CORP</td>
+            <td>Apel Thomas G</td>
+            <td>—</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$47.47</td>
+            <td style="text-align:right" class="td-value">$47K</td>
+            <td style="text-align:right">2.2%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1356389/000162828026067363/0001628280-26-067363-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">STC</td>
+            <td>STEWART INFORMATION SERVICES CORP</td>
+            <td>Corey William S. Jr.</td>
+            <td>—</td>
+            <td style="text-align:right">2,000</td>
+            <td style="text-align:right">$46.82</td>
+            <td style="text-align:right" class="td-value">$94K</td>
+            <td style="text-align:right">17.5%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1815639/000162828026067362/0001628280-26-067362-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">STC</td>
+            <td>STEWART INFORMATION SERVICES CORP</td>
+            <td>BRADLEY C ALLEN JR</td>
+            <td>—</td>
+            <td style="text-align:right">2,000</td>
+            <td style="text-align:right">$47.30</td>
+            <td style="text-align:right" class="td-value">$95K</td>
+            <td style="text-align:right">8.0%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1341775/000162828026067360/0001628280-26-067360-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">THRM</td>
+            <td>Gentherm Inc</td>
+            <td>Presley William T.</td>
+            <td>President &amp; CEO</td>
+            <td style="text-align:right">5,000</td>
+            <td style="text-align:right">$26.00</td>
+            <td style="text-align:right" class="td-value">$130K</td>
+            <td style="text-align:right">2.8%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1824971/000119312526432207/0001193125-26-432207-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">MSM</td>
+            <td>MSC INDUSTRIAL DIRECT CO INC</td>
+            <td>Slone Reuben E</td>
+            <td>—</td>
+            <td style="text-align:right">370</td>
+            <td style="text-align:right">$115.64</td>
+            <td style="text-align:right" class="td-value">$43K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1518692/000100307826000112/0001003078-26-000112-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">CHCO</td>
+            <td>CITY HOLDING CO</td>
+            <td>STRONG-TREISTER DIANE W</td>
+            <td>—</td>
+            <td style="text-align:right">120</td>
+            <td style="text-align:right">$142.13</td>
+            <td style="text-align:right" class="td-value">$17K</td>
+            <td style="text-align:right">2.9%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1730666/000072685426000188/0000726854-26-000188-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">CHCO</td>
+            <td>CITY HOLDING CO</td>
+            <td>Reyes Javier A</td>
+            <td>—</td>
+            <td style="text-align:right">95</td>
+            <td style="text-align:right">$142.13</td>
+            <td style="text-align:right" class="td-value">$14K</td>
+            <td style="text-align:right">4.0%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1880770/000072685426000187/0000726854-26-000187-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">CHCO</td>
+            <td>CITY HOLDING CO</td>
+            <td>Hoyer James A</td>
+            <td>—</td>
+            <td style="text-align:right">100</td>
+            <td style="text-align:right">$142.13</td>
+            <td style="text-align:right" class="td-value">$14K</td>
+            <td style="text-align:right">14.2%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2029548/000072685426000186/0000726854-26-000186-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">CHCO</td>
+            <td>CITY HOLDING CO</td>
+            <td>FISHER ROBERT D</td>
+            <td>—</td>
+            <td style="text-align:right">165</td>
+            <td style="text-align:right">$142.13</td>
+            <td style="text-align:right" class="td-value">$23K</td>
+            <td style="text-align:right">0.3%</td>
+            <td style="text-align:right" class="td-score">4</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1234850/000072685426000185/0000726854-26-000185-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">ACTU</td>
+            <td>ACTUATE THERAPEUTICS, INC.</td>
+            <td>SCHMITT DANIEL M</td>
+            <td>President, CEO and Director</td>
+            <td style="text-align:right">140,844</td>
+            <td style="text-align:right">$0.35</td>
+            <td style="text-align:right" class="td-value">$50K</td>
+            <td style="text-align:right">46.7%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1318470/000168316826008147/0001683168-26-008147-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">PNFP</td>
+            <td>Pinnacle Financial Partners, Inc.</td>
+            <td>INGRAM DAVID B</td>
+            <td>—</td>
+            <td style="text-align:right">10,000</td>
+            <td style="text-align:right">$99.16</td>
+            <td style="text-align:right" class="td-value">$992K</td>
+            <td style="text-align:right">15.3%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1219004/000121900426000004/0001219004-26-000004-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-29</td>
+            <td class="td-ticker">DINO</td>
+            <td>HF Sinclair Corp</td>
+            <td>MYERS FRANKLIN</td>
+            <td>CEO</td>
+            <td style="text-align:right">10,000</td>
+            <td style="text-align:right">$110.80</td>
+            <td style="text-align:right" class="td-value">$1.1M</td>
+            <td style="text-align:right">5.1%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1207002/000119312526438100/0001193125-26-438100-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">CRBG</td>
+            <td>Corebridge Financial, Inc.</td>
+            <td>NIPPON LIFE INSURANCE CO</td>
+            <td>—</td>
+            <td style="text-align:right">178,129</td>
+            <td style="text-align:right">$35.14</td>
+            <td style="text-align:right" class="td-value">$6.3M</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/905591/000119312526437931/0001193125-26-437931-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">HYMC</td>
+            <td>HYCROFT MINING HOLDING CORP</td>
+            <td>Rhodes Blake</td>
+            <td>—</td>
+            <td style="text-align:right">3,000</td>
+            <td style="text-align:right">$16.69</td>
+            <td style="text-align:right" class="td-value">$50K</td>
+            <td style="text-align:right">73.8%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1855045/000149315226048971/0001493152-26-048971-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">HXL</td>
+            <td>HEXCEL CORP /DE/</td>
+            <td>KEATING NEAL J.</td>
+            <td>—</td>
+            <td style="text-align:right">3,000</td>
+            <td style="text-align:right">$80.67</td>
+            <td style="text-align:right" class="td-value">$242K</td>
+            <td style="text-align:right">1181.1%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1319629/000119312526436418/0001193125-26-436418-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">CRBG</td>
+            <td>Corebridge Financial, Inc.</td>
+            <td>NIPPON LIFE INSURANCE CO</td>
+            <td>—</td>
+            <td style="text-align:right">182,826</td>
+            <td style="text-align:right">$34.95</td>
+            <td style="text-align:right" class="td-value">$6.4M</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/905591/000119312526436365/0001193125-26-436365-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">SRRK</td>
+            <td>Scholar Rock Holding Corp</td>
+            <td>AKKARAJU SRINIVAS</td>
+            <td>—</td>
+            <td style="text-align:right">47,000</td>
+            <td style="text-align:right">$41.31</td>
+            <td style="text-align:right" class="td-value">$1.9M</td>
+            <td style="text-align:right">0.8%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1253170/000125317026000014/0001253170-26-000014-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">SRRK</td>
+            <td>Scholar Rock Holding Corp</td>
+            <td>AKKARAJU SRINIVAS</td>
+            <td>—</td>
+            <td style="text-align:right">94,000</td>
+            <td style="text-align:right">$41.31</td>
+            <td style="text-align:right" class="td-value">$3.9M</td>
+            <td style="text-align:right">17.7%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1253170/000125317026000014/0001253170-26-000014-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">SRRK</td>
+            <td>Scholar Rock Holding Corp</td>
+            <td>AKKARAJU SRINIVAS</td>
+            <td>—</td>
+            <td style="text-align:right">48,988</td>
+            <td style="text-align:right">$41.59</td>
+            <td style="text-align:right" class="td-value">$2.0M</td>
+            <td style="text-align:right">0.8%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1253170/000125317026000014/0001253170-26-000014-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">SRRK</td>
+            <td>Scholar Rock Holding Corp</td>
+            <td>AKKARAJU SRINIVAS</td>
+            <td>—</td>
+            <td style="text-align:right">97,982</td>
+            <td style="text-align:right">$41.59</td>
+            <td style="text-align:right" class="td-value">$4.1M</td>
+            <td style="text-align:right">15.7%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1253170/000125317026000014/0001253170-26-000014-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">CRBG</td>
+            <td>Corebridge Financial, Inc.</td>
+            <td>NIPPON LIFE INSURANCE CO</td>
+            <td>—</td>
+            <td style="text-align:right">411,516</td>
+            <td style="text-align:right">$33.74</td>
+            <td style="text-align:right" class="td-value">$13.9M</td>
+            <td style="text-align:right">0.3%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/905591/000119312526434287/0001193125-26-434287-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">CRBG</td>
+            <td>Corebridge Financial, Inc.</td>
+            <td>NIPPON LIFE INSURANCE CO</td>
+            <td>—</td>
+            <td style="text-align:right">184,093</td>
+            <td style="text-align:right">$34.48</td>
+            <td style="text-align:right" class="td-value">$6.3M</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/905591/000119312526434287/0001193125-26-434287-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">CRBG</td>
+            <td>Corebridge Financial, Inc.</td>
+            <td>NIPPON LIFE INSURANCE CO</td>
+            <td>—</td>
+            <td style="text-align:right">246,440</td>
+            <td style="text-align:right">$35.15</td>
+            <td style="text-align:right" class="td-value">$8.7M</td>
+            <td style="text-align:right">0.2%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/905591/000119312526432280/0001193125-26-432280-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">9,501</td>
+            <td style="text-align:right">$236.02</td>
+            <td style="text-align:right" class="td-value">$2.2M</td>
+            <td style="text-align:right">0.5%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">9,093</td>
+            <td style="text-align:right">$241.44</td>
+            <td style="text-align:right" class="td-value">$2.2M</td>
+            <td style="text-align:right">0.5%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">18,920</td>
+            <td style="text-align:right">$242.77</td>
+            <td style="text-align:right" class="td-value">$4.6M</td>
+            <td style="text-align:right">1.0%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">5,747</td>
+            <td style="text-align:right">$239.92</td>
+            <td style="text-align:right" class="td-value">$1.4M</td>
+            <td style="text-align:right">0.3%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">8,049</td>
+            <td style="text-align:right">$244.16</td>
+            <td style="text-align:right" class="td-value">$2.0M</td>
+            <td style="text-align:right">0.4%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">9,282</td>
+            <td style="text-align:right">$244.92</td>
+            <td style="text-align:right" class="td-value">$2.3M</td>
+            <td style="text-align:right">0.5%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">6,606</td>
+            <td style="text-align:right">$244.02</td>
+            <td style="text-align:right" class="td-value">$1.6M</td>
+            <td style="text-align:right">0.3%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">4,040</td>
+            <td style="text-align:right">$248.33</td>
+            <td style="text-align:right" class="td-value">$1.0M</td>
+            <td style="text-align:right">0.2%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-21</td>
+            <td class="td-ticker">CRBG</td>
+            <td>Corebridge Financial, Inc.</td>
+            <td>NIPPON LIFE INSURANCE CO</td>
+            <td>—</td>
+            <td style="text-align:right">217,182</td>
+            <td style="text-align:right">$35.38</td>
+            <td style="text-align:right" class="td-value">$7.7M</td>
+            <td style="text-align:right">0.2%</td>
+            <td style="text-align:right" class="td-score">3</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/905591/000119312526430508/0001193125-26-430508-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-29</td>
+            <td class="td-ticker">OTLC</td>
+            <td>Oncotelic Therapeutics, Inc.</td>
+            <td>Trieu Vuong</td>
+            <td>CHAIRMAN AND CEO</td>
+            <td style="text-align:right">1,044,990</td>
+            <td style="text-align:right">$0.02</td>
+            <td style="text-align:right" class="td-value">$18K</td>
+            <td style="text-align:right">1.1%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1587074/000149315226049370/0001493152-26-049370-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-29</td>
+            <td class="td-ticker">UTMD</td>
+            <td>UTAH MEDICAL PRODUCTS INC</td>
+            <td>CORNWELL KEVIN L</td>
+            <td>Chairman, CEO</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$66.75</td>
+            <td style="text-align:right" class="td-value">$67K</td>
+            <td style="text-align:right">0.5%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1199423/000173361426000005/0001733614-26-000005-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">LBRT</td>
+            <td>Liberty Energy Inc.</td>
+            <td>Babcock Ken</td>
+            <td>—</td>
+            <td style="text-align:right">14,500</td>
+            <td style="text-align:right">$15.40</td>
+            <td style="text-align:right" class="td-value">$223K</td>
+            <td style="text-align:right">21.1%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1705702/000162828026067906/0001628280-26-067906-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">RCT</td>
+            <td>RedCloud Holdings plc</td>
+            <td>Senn Nikolaus Beat</td>
+            <td>—</td>
+            <td style="text-align:right">1,700,000</td>
+            <td style="text-align:right">$0.25</td>
+            <td style="text-align:right" class="td-value">$425K</td>
+            <td style="text-align:right">16.5%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2070908/000149315226048958/0001493152-26-048958-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">XBIT</td>
+            <td>XBiotech Inc.</td>
+            <td>SIMARD JOHN</td>
+            <td>—</td>
+            <td style="text-align:right">368,524</td>
+            <td style="text-align:right">$1.93</td>
+            <td style="text-align:right" class="td-value">$711K</td>
+            <td style="text-align:right">9.6%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1639078/000119312526435894/0001193125-26-435894-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">OWLS</td>
+            <td>OBOOK HOLDINGS INC.</td>
+            <td>WANG CHUN KAI</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">11,105</td>
+            <td style="text-align:right">$2.01</td>
+            <td style="text-align:right" class="td-value">$22K</td>
+            <td style="text-align:right">0.3%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2109337/000210933726000013/0002109337-26-000013-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">PDI</td>
+            <td>PIMCO Dynamic Income Fund</td>
+            <td>Morris Sonya</td>
+            <td>—</td>
+            <td style="text-align:right">5,700</td>
+            <td style="text-align:right">$14.32</td>
+            <td style="text-align:right" class="td-value">$82K</td>
+            <td style="text-align:right">100.0%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2084606/000208460626000017/0002084606-26-000017-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">ASIC</td>
+            <td>Ategrity Specialty Insurance Co Holdings</td>
+            <td>Schenk Chris</td>
+            <td>See Remarks</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$24.29</td>
+            <td style="text-align:right" class="td-value">$24K</td>
+            <td style="text-align:right">40.0%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2051552/000204049126000054/0002040491-26-000054-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">TIPT</td>
+            <td>TIPTREE INC.</td>
+            <td>Barnes Michael Gene</td>
+            <td>Chairman and CEO</td>
+            <td style="text-align:right">30,930</td>
+            <td style="text-align:right">$16.24</td>
+            <td style="text-align:right" class="td-value">$502K</td>
+            <td style="text-align:right">0.3%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1498811/000149881126000002/0001498811-26-000002-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">CBKM</td>
+            <td>CONSUMERS BANCORP INC /OH/</td>
+            <td>Lober Ralph J II</td>
+            <td>CEO &amp; President</td>
+            <td style="text-align:right">500</td>
+            <td style="text-align:right">$31.97</td>
+            <td style="text-align:right" class="td-value">$16K</td>
+            <td style="text-align:right">0.6%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1401124/000143774926033633/0001437749-26-033633-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">LYCA</td>
+            <td>Lycia Therapeutics, Inc.</td>
+            <td>Venrock Healthcare Capital Partners III, L.P.</td>
+            <td>—</td>
+            <td style="text-align:right">24,560</td>
+            <td style="text-align:right">$25.68</td>
+            <td style="text-align:right" class="td-value">$631K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1615979/000123191926001503/0001231919-26-001503-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">LYCA</td>
+            <td>Lycia Therapeutics, Inc.</td>
+            <td>Venrock Healthcare Capital Partners III, L.P.</td>
+            <td>—</td>
+            <td style="text-align:right">31,067</td>
+            <td style="text-align:right">$26.84</td>
+            <td style="text-align:right" class="td-value">$834K</td>
+            <td style="text-align:right">0.5%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1615979/000123191926001503/0001231919-26-001503-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">LRN</td>
+            <td>Stride, Inc.</td>
+            <td>Haggart Dylan G.</td>
+            <td>—</td>
+            <td style="text-align:right">4,152</td>
+            <td style="text-align:right">$78.47</td>
+            <td style="text-align:right" class="td-value">$326K</td>
+            <td style="text-align:right">0.2%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1684185/000121390026113031/0001213900-26-113031-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">KIO</td>
+            <td>KKR Income Opportunities Fund</td>
+            <td>Takao Justin</td>
+            <td>Treasurer, CAO &amp; CFO</td>
+            <td style="text-align:right">5,133</td>
+            <td style="text-align:right">$9.75</td>
+            <td style="text-align:right" class="td-value">$50K</td>
+            <td style="text-align:right">10112.7%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2094126/000094562126001304/0000945621-26-001304-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">KIO</td>
+            <td>KKR Income Opportunities Fund</td>
+            <td>Takao Justin</td>
+            <td>Treasurer, CAO &amp; CFO</td>
+            <td style="text-align:right">2,914</td>
+            <td style="text-align:right">$9.73</td>
+            <td style="text-align:right" class="td-value">$28K</td>
+            <td style="text-align:right">56.2%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2094126/000094562126001304/0000945621-26-001304-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">XFLT</td>
+            <td>XAI Floating Rate &amp; Alternative Income Trust</td>
+            <td>Spence John Yogi</td>
+            <td>Vice President</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$16.50</td>
+            <td style="text-align:right" class="td-value">$16K</td>
+            <td style="text-align:right">0.9%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1718133/000171813326000006/0001718133-26-000006-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">CITR</td>
+            <td>CitroTech Inc.</td>
+            <td>HUFF CRAIG A</td>
+            <td>—</td>
+            <td style="text-align:right">200,000</td>
+            <td style="text-align:right">$2.50</td>
+            <td style="text-align:right" class="td-value">$500K</td>
+            <td style="text-align:right">6.0%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1241947/000119312526432001/0001193125-26-432001-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">2,659</td>
+            <td style="text-align:right">$242.03</td>
+            <td style="text-align:right" class="td-value">$644K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">3,405</td>
+            <td style="text-align:right">$243.28</td>
+            <td style="text-align:right" class="td-value">$828K</td>
+            <td style="text-align:right">0.2%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">3,720</td>
+            <td style="text-align:right">$245.33</td>
+            <td style="text-align:right" class="td-value">$913K</td>
+            <td style="text-align:right">0.2%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">2,498</td>
+            <td style="text-align:right">$246.12</td>
+            <td style="text-align:right" class="td-value">$615K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">2,030</td>
+            <td style="text-align:right">$249.30</td>
+            <td style="text-align:right" class="td-value">$506K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-21</td>
+            <td class="td-ticker">CRAFX</td>
+            <td>Cascade Real Assets Fund</td>
+            <td>Worley Matthew Eugene</td>
+            <td>—</td>
+            <td style="text-align:right">41,910</td>
+            <td style="text-align:right">$10.29</td>
+            <td style="text-align:right" class="td-value">$431K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2090481/000121390026111971/0001213900-26-111971-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-21</td>
+            <td class="td-ticker">BZUN</td>
+            <td>Baozun Inc.</td>
+            <td>Qiu Wenbin</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">5,700</td>
+            <td style="text-align:right">$3.50</td>
+            <td style="text-align:right" class="td-value">$20K</td>
+            <td style="text-align:right">0.3%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1975717/000110465926118281/0001104659-26-118281-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">BZUN</td>
+            <td>Baozun Inc.</td>
+            <td>Qiu Wenbin</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">5,700</td>
+            <td style="text-align:right">$3.50</td>
+            <td style="text-align:right" class="td-value">$20K</td>
+            <td style="text-align:right">0.3%</td>
+            <td style="text-align:right" class="td-score">2</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1975717/000110465926118281/0001104659-26-118281-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">ARCC</td>
+            <td>ARES CAPITAL CORP</td>
+            <td>HENSON MARY BETH</td>
+            <td>—</td>
+            <td style="text-align:right">2,500</td>
+            <td style="text-align:right">$18.46</td>
+            <td style="text-align:right" class="td-value">$46K</td>
+            <td style="text-align:right">7.2%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1916183/000162828026068348/0001628280-26-068348-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">NBIS</td>
+            <td>Nebius Group N.V.</td>
+            <td>Grimme Arne</td>
+            <td>—</td>
+            <td style="text-align:right">205</td>
+            <td style="text-align:right">$159.04</td>
+            <td style="text-align:right" class="td-value">$33K</td>
+            <td style="text-align:right">2.8%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2091395/000151384526000143/0001513845-26-000143-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">NBIS</td>
+            <td>Nebius Group N.V.</td>
+            <td>Grimme Arne</td>
+            <td>—</td>
+            <td style="text-align:right">148</td>
+            <td style="text-align:right">$169.84</td>
+            <td style="text-align:right" class="td-value">$25K</td>
+            <td style="text-align:right">1.9%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2091395/000151384526000143/0001513845-26-000143-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">LRN</td>
+            <td>Stride, Inc.</td>
+            <td>Haggart Dylan G.</td>
+            <td>—</td>
+            <td style="text-align:right">792</td>
+            <td style="text-align:right">$78.52</td>
+            <td style="text-align:right" class="td-value">$62K</td>
+            <td style="text-align:right">0.0%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1684185/000121390026113987/0001213900-26-113987-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">BFC</td>
+            <td>Bank First Corp</td>
+            <td>Sprang Todd A.</td>
+            <td>—</td>
+            <td style="text-align:right">400</td>
+            <td style="text-align:right">$148.37</td>
+            <td style="text-align:right" class="td-value">$59K</td>
+            <td style="text-align:right">19.7%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2096370/000110465926120006/0001104659-26-120006-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-29</td>
+            <td class="td-ticker">SAMG</td>
+            <td>Silvercrest Asset Management Group Inc.</td>
+            <td>Equinox Partners Investment Management LLC</td>
+            <td>—</td>
+            <td style="text-align:right">32,499</td>
+            <td style="text-align:right">$10.45</td>
+            <td style="text-align:right" class="td-value">$340K</td>
+            <td style="text-align:right">3.9%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/933897/000101359426001116/0001013594-26-001116-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">LCNB</td>
+            <td>LCNB CORP</td>
+            <td>Krehbiel Anne E</td>
+            <td>—</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$19.79</td>
+            <td style="text-align:right" class="td-value">$20K</td>
+            <td style="text-align:right">8.2%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1490798/000143774926033726/0001437749-26-033726-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">NVA</td>
+            <td>Nova Minerals Corp</td>
+            <td>Girnun Joshua I.</td>
+            <td>—</td>
+            <td style="text-align:right">6,780</td>
+            <td style="text-align:right">$2.95</td>
+            <td style="text-align:right" class="td-value">$20K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2143558/000122520826008548/0001225208-26-008548-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">LYCA</td>
+            <td>Lycia Therapeutics, Inc.</td>
+            <td>Venrock Healthcare Capital Partners III, L.P.</td>
+            <td>—</td>
+            <td style="text-align:right">8,261</td>
+            <td style="text-align:right">$26.97</td>
+            <td style="text-align:right" class="td-value">$223K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1615979/000123191926001503/0001231919-26-001503-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">LYCA</td>
+            <td>Lycia Therapeutics, Inc.</td>
+            <td>Venrock Healthcare Capital Partners III, L.P.</td>
+            <td>—</td>
+            <td style="text-align:right">8,729</td>
+            <td style="text-align:right">$25.84</td>
+            <td style="text-align:right" class="td-value">$226K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1615979/000123191926001503/0001231919-26-001503-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">NMCO</td>
+            <td>Nuveen Municipal Credit Opportunities Fund</td>
+            <td>Robert Young L</td>
+            <td>—</td>
+            <td style="text-align:right">28,575</td>
+            <td style="text-align:right">$8.71</td>
+            <td style="text-align:right" class="td-value">$249K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1379422/000122520826008526/0001225208-26-008526-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">NUV</td>
+            <td>NUVEEN MUNICIPAL VALUE FUND INC</td>
+            <td>Robert Young L</td>
+            <td>—</td>
+            <td style="text-align:right">36,430</td>
+            <td style="text-align:right">$8.25</td>
+            <td style="text-align:right" class="td-value">$300K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1379422/000122520826008525/0001225208-26-008525-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">NXP</td>
+            <td>NUVEEN SELECT TAX FREE INCOME PORTFOLIO</td>
+            <td>Robert Young L</td>
+            <td>—</td>
+            <td style="text-align:right">22,848</td>
+            <td style="text-align:right">$13.15</td>
+            <td style="text-align:right" class="td-value">$300K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1379422/000122520826008524/0001225208-26-008524-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">AIOK</td>
+            <td>AI OKTO Corp.</td>
+            <td>Panagiotidis Petros Panagiotis</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">79,858</td>
+            <td style="text-align:right">$6.09</td>
+            <td style="text-align:right" class="td-value">$487K</td>
+            <td style="text-align:right">2.5%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2118775/000114036126040923/0001140361-26-040923-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">AIOK</td>
+            <td>AI OKTO Corp.</td>
+            <td>Panagiotidis Petros Panagiotis</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">31,370</td>
+            <td style="text-align:right">$12.88</td>
+            <td style="text-align:right" class="td-value">$404K</td>
+            <td style="text-align:right">0.9%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2118775/000114036126040923/0001140361-26-040923-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">PEBO</td>
+            <td>PEOPLES BANCORP INC</td>
+            <td>Smith Dwight Eric</td>
+            <td>—</td>
+            <td style="text-align:right">300</td>
+            <td style="text-align:right">$38.66</td>
+            <td style="text-align:right" class="td-value">$12K</td>
+            <td style="text-align:right">2.9%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1335265/000031830026000238/0000318300-26-000238-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">NBIS</td>
+            <td>Nebius Group N.V.</td>
+            <td>Grimme Arne</td>
+            <td>—</td>
+            <td style="text-align:right">357</td>
+            <td style="text-align:right">$161.97</td>
+            <td style="text-align:right" class="td-value">$58K</td>
+            <td style="text-align:right">5.4%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2091395/000151384526000141/0001513845-26-000141-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">NBIS</td>
+            <td>Nebius Group N.V.</td>
+            <td>Grimme Arne</td>
+            <td>—</td>
+            <td style="text-align:right">205</td>
+            <td style="text-align:right">$158.98</td>
+            <td style="text-align:right" class="td-value">$33K</td>
+            <td style="text-align:right">2.9%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2091395/000151384526000141/0001513845-26-000141-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">NBIS</td>
+            <td>Nebius Group N.V.</td>
+            <td>Grimme Arne</td>
+            <td>—</td>
+            <td style="text-align:right">208</td>
+            <td style="text-align:right">$153.96</td>
+            <td style="text-align:right" class="td-value">$32K</td>
+            <td style="text-align:right">2.9%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2091395/000151384526000141/0001513845-26-000141-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">ANIX</td>
+            <td>Anixa Biosciences Inc</td>
+            <td>Titterton Lewis H jr</td>
+            <td>—</td>
+            <td style="text-align:right">8,000</td>
+            <td style="text-align:right">$2.98</td>
+            <td style="text-align:right" class="td-value">$24K</td>
+            <td style="text-align:right">0.8%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1499254/000149315226048520/0001493152-26-048520-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">RVI</td>
+            <td>Robinhood Ventures Fund I</td>
+            <td>Whitney Meredith</td>
+            <td>—</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$23.49</td>
+            <td style="text-align:right" class="td-value">$23K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2108587/000095010326016190/0000950103-26-016190-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">RVII</td>
+            <td>Robinhood Ventures Fund II</td>
+            <td>Whitney Meredith</td>
+            <td>—</td>
+            <td style="text-align:right">1,500</td>
+            <td style="text-align:right">$17.75</td>
+            <td style="text-align:right" class="td-value">$27K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2108587/000095010326016189/0000950103-26-016189-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">563</td>
+            <td style="text-align:right">$235.50</td>
+            <td style="text-align:right" class="td-value">$133K</td>
+            <td style="text-align:right">0.0%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">1,907</td>
+            <td style="text-align:right">$237.43</td>
+            <td style="text-align:right" class="td-value">$453K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">500</td>
+            <td style="text-align:right">$238.23</td>
+            <td style="text-align:right" class="td-value">$119K</td>
+            <td style="text-align:right">0.0%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">953</td>
+            <td style="text-align:right">$243.91</td>
+            <td style="text-align:right" class="td-value">$232K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">1,190</td>
+            <td style="text-align:right">$235.41</td>
+            <td style="text-align:right" class="td-value">$280K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">823</td>
+            <td style="text-align:right">$236.74</td>
+            <td style="text-align:right" class="td-value">$195K</td>
+            <td style="text-align:right">0.0%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">1,223</td>
+            <td style="text-align:right">$237.73</td>
+            <td style="text-align:right" class="td-value">$291K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">1,196</td>
+            <td style="text-align:right">$238.74</td>
+            <td style="text-align:right" class="td-value">$286K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">1,720</td>
+            <td style="text-align:right">$241.18</td>
+            <td style="text-align:right" class="td-value">$415K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">1,894</td>
+            <td style="text-align:right">$242.02</td>
+            <td style="text-align:right" class="td-value">$458K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">1,577</td>
+            <td style="text-align:right">$247.24</td>
+            <td style="text-align:right" class="td-value">$390K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-20</td>
+            <td class="td-ticker">SAMG</td>
+            <td>Silvercrest Asset Management Group Inc.</td>
+            <td>Equinox Partners Investment Management LLC</td>
+            <td>—</td>
+            <td style="text-align:right">10,368</td>
+            <td style="text-align:right">$10.24</td>
+            <td style="text-align:right" class="td-value">$106K</td>
+            <td style="text-align:right">1.3%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/933897/000101359426001082/0001013594-26-001082-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-21</td>
+            <td class="td-ticker">SAMG</td>
+            <td>Silvercrest Asset Management Group Inc.</td>
+            <td>Equinox Partners Investment Management LLC</td>
+            <td>—</td>
+            <td style="text-align:right">14,744</td>
+            <td style="text-align:right">$10.33</td>
+            <td style="text-align:right" class="td-value">$152K</td>
+            <td style="text-align:right">1.8%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/933897/000101359426001082/0001013594-26-001082-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">CLF</td>
+            <td>CLEVELAND-CLIFFS INC.</td>
+            <td>Camara Edilson</td>
+            <td>—</td>
+            <td style="text-align:right">7,400</td>
+            <td style="text-align:right">$13.49</td>
+            <td style="text-align:right" class="td-value">$100K</td>
+            <td style="text-align:right">12.9%</td>
+            <td style="text-align:right" class="td-score">1</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2093073/000076406526000117/0000764065-26-000117-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">UPBD</td>
+            <td>UPBOUND GROUP, INC.</td>
+            <td>BROWN JEFFREY J</td>
+            <td>—</td>
+            <td style="text-align:right">2,217</td>
+            <td style="text-align:right">$17.01</td>
+            <td style="text-align:right" class="td-value">$38K</td>
+            <td style="text-align:right">2.3%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1245377/000119312526437864/0001193125-26-437864-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">API</td>
+            <td>Agora, Inc.</td>
+            <td>Zhao Bin</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">3,000</td>
+            <td style="text-align:right">$4.47</td>
+            <td style="text-align:right" class="td-value">$13K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1843236/000119312526437062/0001193125-26-437062-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">API</td>
+            <td>Agora, Inc.</td>
+            <td>Zhao Bin</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">9,549</td>
+            <td style="text-align:right">$4.47</td>
+            <td style="text-align:right" class="td-value">$43K</td>
+            <td style="text-align:right">0.4%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1843236/000119312526437062/0001193125-26-437062-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-27</td>
+            <td class="td-ticker">BOLD</td>
+            <td>Boundless Bio, Inc.</td>
+            <td>TANG KEVIN</td>
+            <td>—</td>
+            <td style="text-align:right">10,707</td>
+            <td style="text-align:right">$2.40</td>
+            <td style="text-align:right" class="td-value">$26K</td>
+            <td style="text-align:right">0.4%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1178579/000117857926000022/0001178579-26-000022-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">ELVR</td>
+            <td>Elevra Lithium Ltd</td>
+            <td>Cortes Vargas Christian Mauricio</td>
+            <td>Chief Financial Officer</td>
+            <td style="text-align:right">8,000</td>
+            <td style="text-align:right">$2.67</td>
+            <td style="text-align:right" class="td-value">$21K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2119659/000114036126041173/0001140361-26-041173-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-28</td>
+            <td class="td-ticker">ELVR</td>
+            <td>Elevra Lithium Ltd</td>
+            <td>Cortes Vargas Christian Mauricio</td>
+            <td>Chief Financial Officer</td>
+            <td style="text-align:right">8,000</td>
+            <td style="text-align:right">$2.67</td>
+            <td style="text-align:right" class="td-value">$21K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2119659/000114036126041173/0001140361-26-041173-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-29</td>
+            <td class="td-ticker">AEYE</td>
+            <td>AUDIOEYE INC</td>
+            <td>HAWKINS JAMES B</td>
+            <td>—</td>
+            <td style="text-align:right">3,000</td>
+            <td style="text-align:right">$12.34</td>
+            <td style="text-align:right" class="td-value">$37K</td>
+            <td style="text-align:right">1.4%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/898243/000089824326000025/0000898243-26-000025-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-15</td>
+            <td class="td-ticker">WS</td>
+            <td>Worthington Steel, Inc.</td>
+            <td>Ganem George John III</td>
+            <td>CEO Americas Kloeckner Metals</td>
+            <td style="text-align:right">800</td>
+            <td style="text-align:right">$39.37</td>
+            <td style="text-align:right" class="td-value">$31K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2139609/000119312526436256/0001193125-26-436256-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">SRRK</td>
+            <td>Scholar Rock Holding Corp</td>
+            <td>AKKARAJU SRINIVAS</td>
+            <td>—</td>
+            <td style="text-align:right">500</td>
+            <td style="text-align:right">$41.82</td>
+            <td style="text-align:right" class="td-value">$21K</td>
+            <td style="text-align:right">0.0%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1253170/000125317026000014/0001253170-26-000014-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">SRRK</td>
+            <td>Scholar Rock Holding Corp</td>
+            <td>AKKARAJU SRINIVAS</td>
+            <td>—</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$41.82</td>
+            <td style="text-align:right" class="td-value">$42K</td>
+            <td style="text-align:right">0.2%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1253170/000125317026000014/0001253170-26-000014-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">FFIN</td>
+            <td>FIRST FINANCIAL BANKSHARES INC</td>
+            <td>Nickles Robert Clark Jr</td>
+            <td>—</td>
+            <td style="text-align:right">820</td>
+            <td style="text-align:right">$30.12</td>
+            <td style="text-align:right" class="td-value">$25K</td>
+            <td style="text-align:right">0.8%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1774337/000119312526433039/0001193125-26-433039-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">API</td>
+            <td>Agora, Inc.</td>
+            <td>Zhao Bin</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">9,906</td>
+            <td style="text-align:right">$4.42</td>
+            <td style="text-align:right" class="td-value">$44K</td>
+            <td style="text-align:right">0.5%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1843236/000119312526432685/0001193125-26-432685-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">API</td>
+            <td>Agora, Inc.</td>
+            <td>Zhao Bin</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">7,692</td>
+            <td style="text-align:right">$4.47</td>
+            <td style="text-align:right" class="td-value">$34K</td>
+            <td style="text-align:right">0.3%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1843236/000119312526432685/0001193125-26-432685-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">AIOK</td>
+            <td>AI OKTO Corp.</td>
+            <td>Panagiotidis Petros Panagiotis</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">3,545</td>
+            <td style="text-align:right">$6.67</td>
+            <td style="text-align:right" class="td-value">$24K</td>
+            <td style="text-align:right">0.1%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2118775/000114036126040923/0001140361-26-040923-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">AIOK</td>
+            <td>AI OKTO Corp.</td>
+            <td>Panagiotidis Petros Panagiotis</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">7,340</td>
+            <td style="text-align:right">$9.25</td>
+            <td style="text-align:right" class="td-value">$68K</td>
+            <td style="text-align:right">0.2%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2118775/000114036126040923/0001140361-26-040923-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">AIOK</td>
+            <td>AI OKTO Corp.</td>
+            <td>Panagiotidis Petros Panagiotis</td>
+            <td>Chief Executive Officer</td>
+            <td style="text-align:right">7,562</td>
+            <td style="text-align:right">$9.91</td>
+            <td style="text-align:right" class="td-value">$75K</td>
+            <td style="text-align:right">0.2%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2118775/000114036126040923/0001140361-26-040923-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">BY</td>
+            <td>BYLINE BANCORP, INC.</td>
+            <td>Stewart Pamela C</td>
+            <td>—</td>
+            <td style="text-align:right">1,160</td>
+            <td style="text-align:right">$38.61</td>
+            <td style="text-align:right" class="td-value">$45K</td>
+            <td style="text-align:right">18.3%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1978033/000197803326000002/0001978033-26-000002-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">CCBG</td>
+            <td>CAPITAL CITY BANK GROUP INC</td>
+            <td>Butler William F</td>
+            <td>—</td>
+            <td style="text-align:right">392</td>
+            <td style="text-align:right">$51.07</td>
+            <td style="text-align:right" class="td-value">$20K</td>
+            <td style="text-align:right">5.8%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1899058/000189905826000006/0001899058-26-000006-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">TCBX</td>
+            <td>Third Coast Bancshares, Inc.</td>
+            <td>Bobbora William</td>
+            <td>See Remarks</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$40.34</td>
+            <td style="text-align:right" class="td-value">$40K</td>
+            <td style="text-align:right">1.9%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1966486/000119312526431998/0001193125-26-431998-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-15</td>
+            <td class="td-ticker">LXU</td>
+            <td>LSB INDUSTRIES, INC.</td>
+            <td>Ackerman Jonathan Z.</td>
+            <td>—</td>
+            <td style="text-align:right">1,000</td>
+            <td style="text-align:right">$10.17</td>
+            <td style="text-align:right" class="td-value">$10K</td>
+            <td style="text-align:right">8.9%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1580050/000119312526431955/0001193125-26-431955-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">BOLD</td>
+            <td>Boundless Bio, Inc.</td>
+            <td>TANG KEVIN</td>
+            <td>—</td>
+            <td style="text-align:right">5,800</td>
+            <td style="text-align:right">$2.40</td>
+            <td style="text-align:right" class="td-value">$14K</td>
+            <td style="text-align:right">0.2%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1178579/000117857926000020/0001178579-26-000020-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">BOLD</td>
+            <td>Boundless Bio, Inc.</td>
+            <td>TANG KEVIN</td>
+            <td>—</td>
+            <td style="text-align:right">6,234</td>
+            <td style="text-align:right">$2.38</td>
+            <td style="text-align:right" class="td-value">$15K</td>
+            <td style="text-align:right">0.2%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1178579/000117857926000020/0001178579-26-000020-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-26</td>
+            <td class="td-ticker">BOLD</td>
+            <td>Boundless Bio, Inc.</td>
+            <td>TANG KEVIN</td>
+            <td>—</td>
+            <td style="text-align:right">9,606</td>
+            <td style="text-align:right">$2.38</td>
+            <td style="text-align:right" class="td-value">$23K</td>
+            <td style="text-align:right">0.3%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1178579/000117857926000020/0001178579-26-000020-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">GROW</td>
+            <td>U S GLOBAL INVESTORS INC</td>
+            <td>Pilecki Derek Steven</td>
+            <td>—</td>
+            <td style="text-align:right">4,532</td>
+            <td style="text-align:right">$2.58</td>
+            <td style="text-align:right" class="td-value">$12K</td>
+            <td style="text-align:right">0.4%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/2137707/000106299326005547/0001062993-26-005547-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">120</td>
+            <td style="text-align:right">$226.00</td>
+            <td style="text-align:right" class="td-value">$27K</td>
+            <td style="text-align:right">0.0%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">164</td>
+            <td style="text-align:right">$230.97</td>
+            <td style="text-align:right" class="td-value">$38K</td>
+            <td style="text-align:right">0.0%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">160</td>
+            <td style="text-align:right">$232.28</td>
+            <td style="text-align:right" class="td-value">$37K</td>
+            <td style="text-align:right">0.0%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">120</td>
+            <td style="text-align:right">$233.76</td>
+            <td style="text-align:right" class="td-value">$28K</td>
+            <td style="text-align:right">0.0%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">GPI</td>
+            <td>GROUP 1 AUTOMOTIVE INC</td>
+            <td>Conifer Management, L.L.C.</td>
+            <td>—</td>
+            <td style="text-align:right">339</td>
+            <td style="text-align:right">$239.92</td>
+            <td style="text-align:right" class="td-value">$81K</td>
+            <td style="text-align:right">0.0%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1773994/000090514826004561/0000905148-26-004561-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-23</td>
+            <td class="td-ticker">RAPP</td>
+            <td>Rapport Therapeutics, Inc.</td>
+            <td>Sanchez Ramiro</td>
+            <td>—</td>
+            <td style="text-align:right">3,600</td>
+            <td style="text-align:right">$27.35</td>
+            <td style="text-align:right" class="td-value">$98K</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/1830326/000119312526430397/0001193125-26-430397-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-15</td>
+            <td class="td-ticker">SAMG</td>
+            <td>Silvercrest Asset Management Group Inc.</td>
+            <td>Equinox Partners Investment Management LLC</td>
+            <td>—</td>
+            <td style="text-align:right">5,692</td>
+            <td style="text-align:right">$10.47</td>
+            <td style="text-align:right" class="td-value">$60K</td>
+            <td style="text-align:right">0.7%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/933897/000101359426001082/0001013594-26-001082-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+          <tr>
+            <td>2026-10-22</td>
+            <td class="td-ticker">SAMG</td>
+            <td>Silvercrest Asset Management Group Inc.</td>
+            <td>Equinox Partners Investment Management LLC</td>
+            <td>—</td>
+            <td style="text-align:right">3,322</td>
+            <td style="text-align:right">$10.42</td>
+            <td style="text-align:right" class="td-value">$35K</td>
+            <td style="text-align:right">0.4%</td>
+            <td style="text-align:right" class="td-score">0</td>
+            <td><a href="https://www.sec.gov/Archives/edgar/data/933897/000101359426001082/0001013594-26-001082-index.htm" target="_blank" title="SEC Filing">↗</a></td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var sortCol = -1, sortDir = 1;
+  function sortTable(col) {
+    var tbl = document.getElementById("tx-table");
+    var thead = tbl.querySelector("thead tr");
+    var tbody = tbl.querySelector("tbody");
+    var rows = Array.from(tbody.querySelectorAll("tr"));
+    if (sortCol === col) { sortDir *= -1; } else { sortDir = -1; sortCol = col; }
+    Array.from(thead.querySelectorAll("th")).forEach(function(th, i) {
+      th.classList.remove("sort-asc", "sort-desc");
+    });
+    thead.querySelectorAll("th")[col].classList.add(sortDir === 1 ? "sort-asc" : "sort-desc");
+    rows.sort(function(a, b) {
+      var av = a.cells[col].textContent.trim().replace(/[$,%]/g, "").replace(/,/g, "");
+      var bv = b.cells[col].textContent.trim().replace(/[$,%]/g, "").replace(/,/g, "");
+      var an = parseFloat(av), bn = parseFloat(bv);
+      if (!isNaN(an) && !isNaN(bn)) return (an - bn) * sortDir;
+      return av.localeCompare(bv) * sortDir;
+    });
+    rows.forEach(function(r) { tbody.appendChild(r); });
+  }
+  window.sortTable = sortTable;
+})();
+</script>
+</body>
+</html>
